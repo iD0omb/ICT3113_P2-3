@@ -7,8 +7,9 @@ import uuid
 from datetime import datetime, timezone
 
 import requests
-from flask import Flask, jsonify, request
+from flask import Flask, g, jsonify, request
 from psycopg.rows import dict_row
+from werkzeug.exceptions import HTTPException
 from psycopg_pool import ConnectionPool
 
 CATEGORIES = [
@@ -68,6 +69,10 @@ log = _setup_logger()
 def log_event(**fields):
     fields["ts"] = datetime.now(timezone.utc).isoformat()
     log.info(json.dumps(fields))
+
+
+def ms_since(t):
+    return round((time.perf_counter() - t) * 1000, 1)
 
 
 # --- Storage ---------------------------------------------------------------
@@ -161,51 +166,76 @@ app = Flask(__name__)
 init_db()
 
 
+@app.before_request
+def start_request():
+    g.request_id = uuid.uuid4().hex
+    g.started = time.perf_counter()
+    g.log_fields = {}
+
+
+@app.after_request
+def log_request(response):
+    log_event(event="request", request_id=g.request_id, method=request.method,
+              path=request.path, status=response.status_code,
+              total_ms=ms_since(g.started), **g.log_fields)
+    return response
+
+
+@app.errorhandler(Exception)
+def unhandled_error(exc):
+    if isinstance(exc, HTTPException):
+        return exc
+    g.log_fields["error"] = f"{type(exc).__name__}: {exc}"
+    return jsonify(error="internal error"), 500
+
+
 @app.post("/tickets")
 def create_ticket():
-    started = time.perf_counter()
-    request_id = uuid.uuid4().hex
-
     if request.is_json:
         narrative = (request.get_json(silent=True) or {}).get("narrative")
     else:
         narrative = request.get_data(as_text=True)
     if not isinstance(narrative, str) or not narrative.strip():
+        g.log_fields["error"] = "missing or empty narrative"
         return jsonify(error="request body must contain a non-empty 'narrative'"), 400
     narrative = narrative.strip()
+    g.log_fields.update(model=MODEL, prompt_version=PROMPT_VERSION, chars=len(narrative))
 
+    t = time.perf_counter()
     try:
         category, timings = classify(narrative)
     except (ClassificationError, requests.RequestException) as exc:
-        log_event(event="classify", request_id=request_id, status="error", model=MODEL,
-                  prompt_version=PROMPT_VERSION, error=str(exc), chars=len(narrative),
-                  total_ms=round((time.perf_counter() - started) * 1000, 1))
+        g.log_fields.update(error=str(exc), classify_ms=ms_since(t))
         return jsonify(error="classification failed", detail=str(exc)), 502
+    g.log_fields.update(category=category, classify_ms=ms_since(t), **timings)
 
+    t = time.perf_counter()
     with pool.connection() as conn:
         ticket_id = conn.execute(
             "INSERT INTO tickets (narrative, category, model, prompt_version) "
             "VALUES (%s, %s, %s, %s) RETURNING id",
             (narrative, category, MODEL, PROMPT_VERSION),
         ).fetchone()["id"]
+    g.log_fields.update(ticket_id=ticket_id, db_ms=ms_since(t))
 
-    total_ms = round((time.perf_counter() - started) * 1000, 1)
-    log_event(event="classify", request_id=request_id, status="ok", ticket_id=ticket_id,
-              model=MODEL, prompt_version=PROMPT_VERSION, category=category,
-              chars=len(narrative), total_ms=total_ms, **timings)
-    return jsonify(id=ticket_id, category=category, model=MODEL, latency_ms=total_ms), 201
+    return jsonify(id=ticket_id, category=category, model=MODEL,
+                   latency_ms=ms_since(g.started)), 201
 
 
 @app.get("/search")
 def search():
     q = request.args.get("q", "").strip()
+    g.log_fields["q"] = q
     if not q:
+        g.log_fields["error"] = "missing q"
         return jsonify(error="query parameter 'q' is required"), 400
     try:
         limit = max(1, min(int(request.args.get("limit", 20)), 100))
     except ValueError:
+        g.log_fields["error"] = "invalid limit"
         return jsonify(error="'limit' must be an integer"), 400
     category = request.args.get("category")
+    g.log_fields.update(limit=limit, category=category)
 
     # websearch_to_tsquery accepts free text and never raises on odd syntax.
     sql = (
@@ -225,6 +255,7 @@ def search():
         rows = conn.execute(sql, params).fetchall()
     for r in rows:
         r["created_at"] = r["created_at"].isoformat()
+    g.log_fields["count"] = len(rows)
     return jsonify(query=q, count=len(rows), results=rows)
 
 
@@ -236,6 +267,7 @@ def stats():
         ).fetchall()
     counts = {c: 0 for c in CATEGORIES}
     counts.update({r["category"]: r["n"] for r in rows})
+    g.log_fields["total"] = sum(counts.values())
     return jsonify(total=sum(counts.values()), by_category=counts)
 
 
