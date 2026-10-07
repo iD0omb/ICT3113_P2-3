@@ -31,9 +31,9 @@ flowchart LR
 |---|---|---|
 | System under test | Laptop: AMD Ryzen AI 9 HX 370 (12 cores / 24 threads), 32 GB RAM, Windows | Docker Desktop (WSL2 backend): `app`, `ollama`, `postgres` |
 | Load generator | Desktop: Intel Core i5-13600KF (14 cores / 20 threads), 32 GB RAM, Windows | Apache JMeter 5.6.3 (non-GUI), Python 3 |
-| Network | Direct Ethernet: Ugreen Cat8 cable, ASUS USB-A Ethernet adapter on the laptop. Static IPs: laptop `192.168.50.1`, desktop `192.168.50.2`, mask `255.255.255.0` | Round-trip time: `<ping result>`; link speed: `<adapter link speed>` |
+| Network | Both machines wired to the same home router. Laptop: ASUS USB-A Ethernet adapter + Ugreen Cat8 cable, Wi-Fi off. Desktop: built-in Ethernet. Addresses assigned by the router (DHCP) | Link speed: laptop 100 Mbps, desktop 1000 Mbps. `GET /health` round trip from the desktop: 15 ms (new connection, through Docker Desktop's port forwarding) |
 
-The network adds well under a millisecond per request, against seconds of model inference, so it does not affect the results. The laptop's USB adapter caps the link speed; ticket payloads are only a few kilobytes, so bandwidth is irrelevant.
+The network path adds about 15 ms per request (connection setup, router, Docker port forwarding), against seconds of model inference and the 1 s search requirement, so it does not materially affect the results. The laptop's link runs at 100 Mbps (USB adapter); the largest response, a 20-result search of about 20 KB, takes about 1.6 ms to transfer at that speed, which is negligible against the 1 s search requirement.
 
 The laptop's integrated Radeon GPU and NPU are not used. Ollama runs in a Linux container with no GPU device passed through, and `CUDA_VISIBLE_DEVICES=""` is set (verified in 3.1).
 
@@ -50,12 +50,21 @@ The laptop's integrated Radeon GPU and NPU are not used. Ollama runs in a Linux 
 
 ## 2. One-time setup
 
-1. **Network.** Connect the cable and set the static IPs above. On the laptop, allow inbound TCP 5000 in Windows Defender Firewall.
+1. **Network (laptop).**
+   - Connect the USB adapter to a router LAN port and turn Wi-Fi off.
+   - Set the Ethernet network profile to Private.
+   - Note the Ethernet adapter's IPv4 address from `ipconfig` (not a `vEthernet` adapter). This is `<laptop IP>` below. Re-check it before each session, because the router may reassign it.
+   - Allow inbound TCP 5000 from the desktop only (administrator PowerShell):
+     ```
+     New-NetFirewallRule -DisplayName "Ticket triage 5000" -Direction Inbound -Protocol TCP -LocalPort 5000 -RemoteAddress <desktop IP> -Action Allow -Profile Private
+     ```
 2. **Check reachability from the desktop:**
    ```
-   curl http://192.168.50.1:5000/health
+   Test-NetConnection <laptop IP> -Port 5000
+   curl.exe http://<laptop IP>:5000/health
+   curl.exe -o NUL -s -w "%{time_total}\n" http://<laptop IP>:5000/health
    ```
-   It must return `"status": "ok"`. Record `ping 192.168.50.1` and the adapter's link speed (Settings > Network > Ethernet) for Section 1.
+   The port test must report `TcpTestSucceeded : True`, and `/health` must return `"status": "ok"`. Record the round-trip time and both link speeds (Settings > Network > Ethernet) for Section 1. Windows blocks inbound ping by default, so `ping` timing out is expected.
 3. **Laptop power and thermals.**
    - On mains power for the whole session.
    - Windows power mode: Best performance; ASUS performance profile: Performance (not Silent).
@@ -93,7 +102,7 @@ Send one ticket from team rows that is **not** in the golden set, with run ID `<
 ### 3.3 Accuracy run (desktop)
 
 ```
-python scripts/accuracy_run.py --host 192.168.50.1 --run-id <model>-acc --out results/<model>/accuracy/accuracy.csv
+python scripts/accuracy_run.py --host <laptop IP> --run-id <model>-acc --out results/<model>/accuracy/accuracy.csv
 ```
 
 - Sends the 150 golden-set narratives to `POST /tickets` **one at a time**: the next request starts only after the previous response arrives. No ticket waits behind another.
@@ -105,8 +114,10 @@ python scripts/accuracy_run.py --host 192.168.50.1 --run-id <model>-acc --out re
 Six runs per model: 50/h runs 1–3, then 100/h runs 1–3. Example for 50/h run 1:
 
 ```
-jmeter -n -t jmeter/load_test.jmx -Jhost=192.168.50.1 -Jticket_rate=50 -Jsearch_rate=214 -Jstats_rate=60 -Jduration=30 -Jrun_id=<model>-50-r1 -l results/<model>/load/50/run1/results.jtl
+.\jmeter\run_load.ps1 -Model <model tag> -Rate 50 -Run 1 -SutHost <laptop IP>
 ```
+
+This runs `jmeter/load_test.jmx` in non-GUI mode with ticket rate 50/h, search 214/h, stats 60/h, duration 30 min and run ID `<model>-50-r1`. Results go to `results/<model>/load/50/run1/results.jtl`; the script refuses to overwrite an existing run.
 
 After each run, wait until JMeter exits (all in-flight requests finished), then **2 minutes idle** before the next run.
 

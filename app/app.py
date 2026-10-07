@@ -172,7 +172,8 @@ def start_request():
 
 @app.after_request
 def log_request(response):
-    log_event(event="request", request_id=g.request_id, method=request.method,
+    log_event(event="request", request_id=g.request_id,
+              run_id=request.headers.get("X-Run-Id"), method=request.method,
               path=request.path, status=response.status_code,
               total_ms=ms_since(g.started), **g.log_fields)
     return response
