@@ -1,0 +1,38 @@
+{
+  "recorded_at": "2026-10-07T12:51:53.135378+00:00",
+  "ollama_version": "0.35.1",
+  "models": [
+    {
+      "tag": "deepseek-r1:1.5b",
+      "digest": "e0979632db5a88d1a53884cb2a941772d10ff5d055aabaa6801c4e36f3a6c2d7",
+      "size_bytes": 1117322768,
+      "parameter_size": "1.8B",
+      "quantization": "Q4_K_M",
+      "family": "qwen2"
+    },
+    {
+      "tag": "gemma3:4b",
+      "digest": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+      "size_bytes": 3338801804,
+      "parameter_size": "4.3B",
+      "quantization": "Q4_K_M",
+      "family": "gemma3"
+    },
+    {
+      "tag": "llama3.1:8b",
+      "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "size_bytes": 4920753328,
+      "parameter_size": "8.0B",
+      "quantization": "Q4_K_M",
+      "family": "llama"
+    },
+    {
+      "tag": "qwen3:4b",
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "size_bytes": 2497293931,
+      "parameter_size": "4.0B",
+      "quantization": "Q4_K_M",
+      "family": "qwen3"
+    }
+  ]
+}
