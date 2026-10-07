@@ -84,11 +84,8 @@ CREATE TABLE IF NOT EXISTS tickets (
     category TEXT NOT NULL,
     model TEXT NOT NULL,
     prompt_version TEXT NOT NULL,
-    created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
-    search_vector TSVECTOR GENERATED ALWAYS AS (to_tsvector('english', narrative)) STORED
+    created_at TIMESTAMPTZ NOT NULL DEFAULT now()
 );
-CREATE INDEX IF NOT EXISTS idx_tickets_category ON tickets (category);
-CREATE INDEX IF NOT EXISTS idx_tickets_search ON tickets USING GIN (search_vector);
 """
 
 pool = ConnectionPool(
@@ -237,18 +234,16 @@ def search():
     category = request.args.get("category")
     g.log_fields.update(limit=limit, category=category)
 
-    # websearch_to_tsquery accepts free text and never raises on odd syntax.
+    pattern = "%" + q.replace("\\", "\\\\").replace("%", "\\%").replace("_", "\\_") + "%"
     sql = (
-        "SELECT id, category, model, created_at, narrative, "
-        "ts_rank(search_vector, query) AS rank "
-        "FROM tickets, websearch_to_tsquery('english', %s) AS query "
-        "WHERE search_vector @@ query"
+        "SELECT id, category, model, created_at, narrative "
+        "FROM tickets WHERE narrative ILIKE %s"
     )
-    params = [q]
+    params = [pattern]
     if category:
         sql += " AND category = %s"
         params.append(category)
-    sql += " ORDER BY rank DESC, id LIMIT %s"
+    sql += " ORDER BY id DESC LIMIT %s"
     params.append(limit)
 
     with pool.connection() as conn:
