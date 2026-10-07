@@ -1,0 +1,87 @@
+name: ticket-triage
+
+services:
+  # Model backend. CPU only: no GPU device reservations are declared, so Ollama
+  # cannot see a GPU even if the host has one.
+  ollama:
+    image: ollama/ollama:${OLLAMA_VERSION:-latest}
+    ports:
+      - "11434:11434"
+    volumes:
+      - ollama-models:/root/.ollama
+    environment:
+      OLLAMA_NUM_PARALLEL: ${OLLAMA_NUM_PARALLEL:-1}
+      OLLAMA_MAX_LOADED_MODELS: ${OLLAMA_MAX_LOADED_MODELS:-1}
+      OLLAMA_KEEP_ALIVE: ${OLLAMA_KEEP_ALIVE:--1}
+      CUDA_VISIBLE_DEVICES: ""
+    healthcheck:
+      test: ["CMD", "ollama", "list"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  # One-shot job: pulls every candidate model, then exits.
+  model-pull:
+    image: ollama/ollama:${OLLAMA_VERSION:-latest}
+    depends_on:
+      ollama:
+        condition: service_healthy
+    environment:
+      OLLAMA_HOST: http://ollama:11434
+      CANDIDATE_MODELS: ${CANDIDATE_MODELS}
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        set -e
+        for m in $$CANDIDATE_MODELS; do
+          echo "Pulling $$m"
+          ollama pull "$$m"
+        done
+        ollama list
+    restart: "no"
+
+  postgres:
+    image: postgres:${POSTGRES_VERSION:-17}
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-triage}
+      POSTGRES_USER: ${POSTGRES_USER:-triage}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+    restart: unless-stopped
+
+  app:
+    build: ./app
+    ports:
+      - "5000:5000"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      model-pull:
+        condition: service_completed_successfully
+    environment:
+      OLLAMA_URL: http://ollama:11434
+      MODEL: ${MODEL}
+      SEED: ${SEED}
+      TEMPERATURE: ${TEMPERATURE:-0}
+      THINK: ${THINK:-false}
+      OLLAMA_TIMEOUT: ${OLLAMA_TIMEOUT:-600}
+      DATABASE_URL: postgresql://${POSTGRES_USER:-triage}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB:-triage}
+      DB_POOL_SIZE: ${GUNICORN_THREADS:-16}
+      LOG_PATH: /logs/requests.log
+      GUNICORN_THREADS: ${GUNICORN_THREADS:-16}
+    volumes:
+      - ./logs:/logs
+    restart: unless-stopped
+
+volumes:
+  ollama-models:
+  postgres-data:
