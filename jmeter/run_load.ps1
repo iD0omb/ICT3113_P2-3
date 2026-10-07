@@ -4,7 +4,7 @@ param(
     [Parameter(Mandatory)][ValidateSet(50, 100)][int]$Rate,
     [Parameter(Mandatory)][ValidateRange(1, 3)][int]$Run,
     [Parameter(Mandatory)][string]$SutHost,
-    [int]$Duration = 30
+    [int]$Duration = 20
 )
 $ErrorActionPreference = "Stop"
 

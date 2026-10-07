@@ -10,7 +10,7 @@ Procedure for every test reported in Assignment 1. A tester with this repository
 flowchart LR
     A[Reset stack<br/>set MODEL] --> B[Warm-up<br/>1 non-golden ticket]
     B --> C[Accuracy run<br/>150 golden tickets<br/>one at a time]
-    C --> D[Load runs<br/>50/h x3, 100/h x3<br/>30 min each, open-loop]
+    C --> D[Load runs<br/>50/h x3, 100/h x3<br/>20 min each, open-loop]
     D --> E[Save log<br/>next model]
     E --> A
     D -.->|llama3.1:8b only| F[Stress test<br/>ramp 50 to 800/h]
@@ -19,7 +19,7 @@ flowchart LR
 1. **Reset:** fresh database, empty log, `MODEL` set in `.env`, digests checked against `scripts/models.lock.json`.
 2. **Warm-up:** one non-golden ticket loads the model into memory. It is excluded from all results.
 3. **Accuracy and single-request latency:** the 150 golden tickets are sent one at a time; overall and per-category accuracy, a confusion matrix, and median/p95 latency with no queueing.
-4. **Load:** JMeter open-loop (Open Model Thread Group, random Poisson arrivals). Tickets at 50/h and 100/h, with 214 searches/h and 60 stats/h running alongside. Three 30-minute runs per rate per model.
+4. **Load:** JMeter open-loop (Open Model Thread Group, random Poisson arrivals). Tickets at 50/h and 100/h, with 214 searches/h and 60 stats/h running alongside. Three 20-minute runs per rate per model (see Deviations).
 5. **Stress (one model):** ticket arrival rate ramps from 50/h to 800/h over 60 min to find the highest rate the system can sustain.
 6. **Evidence:** each run's `.jtl` and the service log are kept in `results/` and reconciled by run ID.
 
@@ -117,7 +117,7 @@ Six runs per model: 50/h runs 1–3, then 100/h runs 1–3. Example for 50/h run
 .\jmeter\run_load.ps1 -Model <model tag> -Rate 50 -Run 1 -SutHost <laptop IP>
 ```
 
-This runs `jmeter/load_test.jmx` in non-GUI mode with ticket rate 50/h, search 214/h, stats 60/h, duration 30 min and run ID `<model>-50-r1`. Results go to `results/<model>/load/50/run1/results.jtl`; the script refuses to overwrite an existing run.
+This runs `jmeter/load_test.jmx` in non-GUI mode with ticket rate 50/h, search 214/h, stats 60/h, duration 20 min and run ID `<model>-50-r1`. Results go to `results/<model>/load/50/run1/results.jtl`; the script refuses to overwrite an existing run.
 
 After each run, wait until JMeter exits (all in-flight requests finished), then **2 minutes idle** before the next run.
 
@@ -153,7 +153,7 @@ Three **Open Model Thread Groups** run simultaneously. All arrivals are open-loo
 - **25/h** (peak) is not run separately: any model meeting the requirements at 50/h meets them at the lower peak rate.
 - **Search (214/h) and stats (60/h)** run at constant design rates in every run. Agent numbers do not double when ticket arrivals do, so only the ticket rate differs between the 50/h and 100/h runs.
 
-**Expected samples per run:** about 25 tickets at 50/h and 50 at 100/h, plus about 107 searches and 30 stats requests. Percentiles are reported with their sample counts.
+**Expected samples per run:** about 17 tickets at 50/h and 33 at 100/h, plus about 71 searches and 20 stats requests. Percentiles are reported with their sample counts.
 
 ## 5. Stress test
 
@@ -212,7 +212,13 @@ results/
 | Item | Time |
 |---|---|
 | Reset + warm-up | ~10 min per model |
-| Accuracy run | ~5–40 min per model |
-| Load runs | 6 x (30 + 2) min ≈ 3.2 h per model |
+| Accuracy run | ~0.5–2 h per model (each runaway answer adds 10 min) |
+| Load runs | 6 x (20 + 2) min ≈ 2.2 h per model |
 | Stress test | ~1.2 h |
-| **Total** | **~15–16 h**, run one model after another on the laptop |
+| **Total** | **~14–18 h**, run one model after another on the laptop |
+
+## 9. Deviations from the committed playbook
+
+| Date (SGT) | Change | Reason | Applies to |
+|---|---|---|---|
+| 2026-10-08, before any load run | Load runs shortened from 30 to 20 minutes | The first accuracy run (`deepseek-r1:1.5b`) showed single-request latencies of 3–12 s and runaway answers that each hit the 600 s timeout. Decided before any load run had started, and applied to all four models, so the models remain directly comparable | All load runs, all models |
