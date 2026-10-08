@@ -1,0 +1,120 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1791425729844,43,GET /stats,200,OK,Dashboard 3-1,text,true,,332,156,1,2,http://192.168.50.104:5000/stats,43,0,3
+1791425732159,15,GET /stats,200,OK,Dashboard 3-2,text,true,,332,156,1,2,http://192.168.50.104:5000/stats,15,0,3
+1791425726393,11722,POST /tickets,201,CREATED,Intake 1-1,text,true,,253,1846,1,1,http://192.168.50.104:5000/tickets,11722,0,13
+1791425745765,16,GET /search,200,OK,Agent search 2-1,text,true,,1136,178,1,1,http://192.168.50.104:5000/search?q=overdraft&limit=20,16,0,3
+1791425749575,11879,POST /tickets,201,CREATED,Intake 1-2,text,true,,239,671,1,1,http://192.168.50.104:5000/tickets,11879,0,4
+1791425764743,12,GET /stats,200,OK,Dashboard 3-3,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,12,0,4
+1791425772436,13,GET /search,200,OK,Agent search 2-2,text,true,,2569,175,1,1,http://192.168.50.104:5000/search?q=escrow&limit=20,12,0,4
+1791425781520,16,GET /search,200,OK,Agent search 2-3,text,true,,2022,182,1,2,http://192.168.50.104:5000/search?q=wire+transfer&limit=20,16,0,3
+1791425775284,12535,POST /tickets,201,CREATED,Intake 1-3,text,true,,239,1897,1,1,http://192.168.50.104:5000/tickets,12535,0,2
+1791425792271,15,GET /search,200,OK,Agent search 2-4,text,true,,5596,178,1,1,http://192.168.50.104:5000/search?q=collector&limit=20,15,0,4
+1791425796840,10,GET /search,200,OK,Agent search 2-5,text,true,,7520,177,1,1,http://192.168.50.104:5000/search?q=late+fee&limit=20,10,0,3
+1791425798883,17,GET /search,200,OK,Agent search 2-6,text,true,,19858,182,1,1,http://192.168.50.104:5000/search?q=credit+report&limit=20,16,0,4
+1791425800805,12,GET /search,200,OK,Agent search 2-7,text,true,,1476,180,1,1,http://192.168.50.104:5000/search?q=foreclosure&limit=20,12,0,4
+1791425802418,16,GET /search,200,OK,Agent search 2-8,text,true,,23082,176,1,1,http://192.168.50.104:5000/search?q=dispute&limit=20,14,0,3
+1791425812418,9504,POST /tickets,201,CREATED,Intake 1-4,text,true,,243,880,1,1,http://192.168.50.104:5000/tickets,9504,0,2
+1791425826172,9,GET /search,200,OK,Agent search 2-9,text,true,,10880,175,1,1,http://192.168.50.104:5000/search?q=refund&limit=20,8,0,3
+1791425838169,13,GET /search,200,OK,Agent search 2-10,text,true,,3953,181,1,1,http://192.168.50.104:5000/search?q=unauthorized&limit=20,13,0,2
+1791425845027,13,GET /search,200,OK,Agent search 2-11,text,true,,9793,183,1,1,http://192.168.50.104:5000/search?q=identity+theft&limit=20,13,0,5
+1791425851127,11,GET /search,200,OK,Agent search 2-12,text,true,,4779,182,1,1,http://192.168.50.104:5000/search?q=interest+rate&limit=20,10,0,3
+1791425862979,10,GET /search,200,OK,Agent search 2-13,text,true,,3518,186,1,1,http://192.168.50.104:5000/search?q=loan+modification&limit=20,10,0,3
+1791425887311,13,GET /search,200,OK,Agent search 2-14,text,true,,2380,183,1,1,http://192.168.50.104:5000/search?q=closed+account&limit=20,13,0,4
+1791425892534,10,GET /stats,200,OK,Dashboard 3-4,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,10,0,3
+1791425901105,13,GET /search,200,OK,Agent search 2-15,text,true,,18942,174,1,1,http://192.168.50.104:5000/search?q=fraud&limit=20,12,0,4
+1791425914725,13,GET /stats,200,OK,Dashboard 3-5,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,13,0,4
+1791425920992,13,GET /search,200,OK,Agent search 2-16,text,true,,23084,176,1,1,http://192.168.50.104:5000/search?q=payment&limit=20,11,0,4
+1791425934165,14,GET /search,200,OK,Agent search 2-17,text,true,,202,185,1,1,http://192.168.50.104:5000/search?q=balance+transfer&limit=20,14,0,5
+1791425941844,10,GET /search,200,OK,Agent search 2-18,text,true,,198,181,1,1,http://192.168.50.104:5000/search?q=repossession&limit=20,10,0,3
+1791425961811,10651,POST /tickets,201,CREATED,Intake 1-5,text,true,,241,1434,1,1,http://192.168.50.104:5000/tickets,10651,0,4
+1791425985636,13,GET /search,200,OK,Agent search 2-19,text,true,,1054,174,1,1,http://192.168.50.104:5000/search?q=Zelle&limit=20,13,0,4
+1791425988329,15,GET /search,200,OK,Agent search 2-20,text,true,,944,180,1,1,http://192.168.50.104:5000/search?q=garnishment&limit=20,15,0,4
+1791425989817,9057,POST /tickets,201,CREATED,Intake 1-6,text,true,,242,1349,1,1,http://192.168.50.104:5000/tickets,9057,0,5
+1791426014357,12,GET /search,200,OK,Agent search 2-21,text,true,,1136,178,1,1,http://192.168.50.104:5000/search?q=overdraft&limit=20,12,0,3
+1791426016063,12,GET /search,200,OK,Agent search 2-22,text,true,,2569,175,1,1,http://192.168.50.104:5000/search?q=escrow&limit=20,12,0,4
+1791426024534,8761,POST /tickets,201,CREATED,Intake 1-7,text,true,,250,1051,1,1,http://192.168.50.104:5000/tickets,8761,0,4
+1791426078233,11,GET /search,200,OK,Agent search 2-23,text,true,,2022,182,1,2,http://192.168.50.104:5000/search?q=wire+transfer&limit=20,10,0,2
+1791426078230,6998,POST /tickets,201,CREATED,Intake 1-8,text,true,,240,829,1,1,http://192.168.50.104:5000/tickets,6998,0,4
+1791426087400,14,GET /stats,200,OK,Dashboard 3-6,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,14,0,4
+1791426088583,9,GET /stats,200,OK,Dashboard 3-7,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,9,0,2
+1791426102453,10,GET /search,200,OK,Agent search 2-24,text,true,,5596,178,1,1,http://192.168.50.104:5000/search?q=collector&limit=20,10,0,3
+1791426119523,11,GET /search,200,OK,Agent search 2-25,text,true,,7520,177,1,1,http://192.168.50.104:5000/search?q=late+fee&limit=20,11,0,2
+1791426123476,15,GET /search,200,OK,Agent search 2-26,text,true,,19414,182,1,1,http://192.168.50.104:5000/search?q=credit+report&limit=20,14,0,4
+1791426130876,11,GET /stats,200,OK,Dashboard 3-8,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,11,0,4
+1791426132608,9,GET /search,200,OK,Agent search 2-27,text,true,,1476,180,1,1,http://192.168.50.104:5000/search?q=foreclosure&limit=20,9,0,3
+1791426133988,6805,POST /tickets,201,CREATED,Intake 1-9,text,true,,242,571,1,1,http://192.168.50.104:5000/tickets,6805,0,4
+1791426150258,14,GET /search,200,OK,Agent search 2-28,text,true,,22551,176,1,1,http://192.168.50.104:5000/search?q=dispute&limit=20,13,0,4
+1791426159604,13,GET /search,200,OK,Agent search 2-29,text,true,,10880,175,1,1,http://192.168.50.104:5000/search?q=refund&limit=20,12,0,4
+1791426209930,13,GET /search,200,OK,Agent search 2-30,text,true,,3953,181,1,2,http://192.168.50.104:5000/search?q=unauthorized&limit=20,13,0,3
+1791426215511,11,GET /stats,200,OK,Dashboard 3-9,text,true,,332,156,1,2,http://192.168.50.104:5000/stats,11,0,3
+1791426223501,12,GET /search,200,OK,Agent search 2-31,text,true,,9793,183,1,2,http://192.168.50.104:5000/search?q=identity+theft&limit=20,11,0,2
+1791426236797,11,GET /search,200,OK,Agent search 2-32,text,true,,4779,182,1,2,http://192.168.50.104:5000/search?q=interest+rate&limit=20,10,0,1
+1791426251341,14,GET /search,200,OK,Agent search 2-33,text,true,,3518,186,1,3,http://192.168.50.104:5000/search?q=loan+modification&limit=20,14,0,4
+1791426266229,15,GET /search,200,OK,Agent search 2-34,text,true,,2380,183,1,3,http://192.168.50.104:5000/search?q=closed+account&limit=20,15,0,3
+1791426277700,15,GET /search,200,OK,Agent search 2-35,text,true,,17857,174,1,3,http://192.168.50.104:5000/search?q=fraud&limit=20,14,0,2
+1791426304678,14,GET /search,200,OK,Agent search 2-36,text,true,,23084,176,1,3,http://192.168.50.104:5000/search?q=payment&limit=20,13,0,3
+1791426318290,14,GET /search,200,OK,Agent search 2-37,text,true,,202,185,1,3,http://192.168.50.104:5000/search?q=balance+transfer&limit=20,14,0,4
+1791426360551,14,GET /search,200,OK,Agent search 2-38,text,true,,198,181,1,4,http://192.168.50.104:5000/search?q=repossession&limit=20,14,0,3
+1791426375854,13,GET /search,200,OK,Agent search 2-39,text,true,,1054,174,1,4,http://192.168.50.104:5000/search?q=Zelle&limit=20,13,0,3
+1791426386013,14,GET /search,200,OK,Agent search 2-40,text,true,,944,180,1,4,http://192.168.50.104:5000/search?q=garnishment&limit=20,14,0,3
+1791426418354,19,GET /search,200,OK,Agent search 2-41,text,true,,1136,178,1,5,http://192.168.50.104:5000/search?q=overdraft&limit=20,19,0,4
+1791426427347,15,GET /search,200,OK,Agent search 2-42,text,true,,2569,175,1,5,http://192.168.50.104:5000/search?q=escrow&limit=20,15,0,4
+1791426430958,15,GET /stats,200,OK,Dashboard 3-10,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,15,0,6
+1791426439505,12,GET /stats,200,OK,Dashboard 3-11,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,12,0,3
+1791426446251,11,GET /search,200,OK,Agent search 2-43,text,true,,2022,182,1,5,http://192.168.50.104:5000/search?q=wire+transfer&limit=20,11,0,3
+1791426446729,11,GET /stats,200,OK,Dashboard 3-12,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,11,0,2
+1791426460772,13,GET /search,200,OK,Agent search 2-44,text,true,,5596,178,1,5,http://192.168.50.104:5000/search?q=collector&limit=20,13,0,3
+1791426463089,13,GET /search,200,OK,Agent search 2-45,text,true,,7520,177,1,5,http://192.168.50.104:5000/search?q=late+fee&limit=20,13,0,3
+1791426472874,15,GET /search,200,OK,Agent search 2-46,text,true,,19414,182,1,5,http://192.168.50.104:5000/search?q=credit+report&limit=20,14,0,4
+1791426474826,16,GET /stats,200,OK,Dashboard 3-13,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,16,0,5
+1791426482596,11,GET /search,200,OK,Agent search 2-47,text,true,,1476,180,1,5,http://192.168.50.104:5000/search?q=foreclosure&limit=20,11,0,1
+1791426482679,14,GET /search,200,OK,Agent search 2-48,text,true,,22551,176,1,5,http://192.168.50.104:5000/search?q=dispute&limit=20,12,0,2
+1791426483112,13,GET /search,200,OK,Agent search 2-49,text,true,,10880,175,1,5,http://192.168.50.104:5000/search?q=refund&limit=20,12,0,3
+1791426502519,13,GET /search,200,OK,Agent search 2-50,text,true,,3953,181,1,5,http://192.168.50.104:5000/search?q=unauthorized&limit=20,13,0,3
+1791426504741,11,GET /stats,200,OK,Dashboard 3-14,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,11,0,3
+1791426519458,14,GET /search,200,OK,Agent search 2-51,text,true,,9793,183,1,5,http://192.168.50.104:5000/search?q=identity+theft&limit=20,13,0,3
+1791426532730,12,GET /search,200,OK,Agent search 2-52,text,true,,4779,182,1,5,http://192.168.50.104:5000/search?q=interest+rate&limit=20,12,0,2
+1791426533103,12,GET /search,200,OK,Agent search 2-53,text,true,,3518,186,1,5,http://192.168.50.104:5000/search?q=loan+modification&limit=20,12,0,3
+1791426553887,12,GET /stats,200,OK,Dashboard 3-15,text,true,,332,156,1,6,http://192.168.50.104:5000/stats,12,0,2
+1791426556646,12,GET /stats,200,OK,Dashboard 3-16,text,true,,332,156,1,6,http://192.168.50.104:5000/stats,12,0,3
+1791426599948,13,GET /stats,200,OK,Dashboard 3-17,text,true,,332,156,1,6,http://192.168.50.104:5000/stats,13,0,4
+1791426617235,12,GET /search,200,OK,Agent search 2-54,text,true,,2380,183,1,6,http://192.168.50.104:5000/search?q=closed+account&limit=20,12,0,3
+1791426630061,16,GET /search,200,OK,Agent search 2-55,text,true,,17857,174,1,6,http://192.168.50.104:5000/search?q=fraud&limit=20,15,0,3
+1791426637706,14,GET /search,200,OK,Agent search 2-56,text,true,,23084,176,1,6,http://192.168.50.104:5000/search?q=payment&limit=20,13,0,3
+1791426680440,13,GET /search,200,OK,Agent search 2-57,text,true,,202,185,1,6,http://192.168.50.104:5000/search?q=balance+transfer&limit=20,13,0,4
+1791426702514,13,GET /search,200,OK,Agent search 2-58,text,true,,198,181,1,6,http://192.168.50.104:5000/search?q=repossession&limit=20,13,0,3
+1791426708582,11,GET /search,200,OK,Agent search 2-59,text,true,,1054,174,1,6,http://192.168.50.104:5000/search?q=Zelle&limit=20,11,0,3
+1791426732421,13,GET /search,200,OK,Agent search 2-60,text,true,,944,180,1,6,http://192.168.50.104:5000/search?q=garnishment&limit=20,13,0,3
+1791426737724,13,GET /search,200,OK,Agent search 2-61,text,true,,1136,178,1,6,http://192.168.50.104:5000/search?q=overdraft&limit=20,13,0,2
+1791426184841,553950,POST /tickets,502,BAD GATEWAY,Intake 1-10,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[502]]]
+
+****** comparison: [[[201]]]
+
+/",289,1101,5,5,http://192.168.50.104:5000/tickets,553950,0,4
+1791426750032,13,GET /stats,200,OK,Dashboard 3-18,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,13,0,2
+1791426759062,15,GET /stats,200,OK,Dashboard 3-19,text,true,,332,156,1,5,http://192.168.50.104:5000/stats,15,0,3
+1791426774103,13,GET /search,200,OK,Agent search 2-62,text,true,,2569,175,1,5,http://192.168.50.104:5000/search?q=escrow&limit=20,13,0,3
+1791426790242,15,GET /search,200,OK,Agent search 2-63,text,true,,2022,182,1,5,http://192.168.50.104:5000/search?q=wire+transfer&limit=20,15,0,3
+1791426791514,11,GET /search,200,OK,Agent search 2-64,text,true,,5596,178,1,5,http://192.168.50.104:5000/search?q=collector&limit=20,11,0,2
+1791426241746,553938,POST /tickets,502,BAD GATEWAY,Intake 1-11,text,false,"Test failed: code expected to equal /
+
+****** received  : [[[502]]]
+
+****** comparison: [[[201]]]
+
+/",289,1366,4,4,http://192.168.50.104:5000/tickets,553938,0,3
+1791426324305,483237,POST /tickets,201,CREATED,Intake 1-12,text,true,,254,961,3,3,http://192.168.50.104:5000/tickets,483237,0,2
+1791426814964,17,GET /search,200,OK,Agent search 2-65,text,true,,7520,177,1,3,http://192.168.50.104:5000/search?q=late+fee&limit=20,16,0,3
+1791426817134,15,GET /search,200,OK,Agent search 2-66,text,true,,19414,182,1,3,http://192.168.50.104:5000/search?q=credit+report&limit=20,14,0,2
+1791426402921,422908,POST /tickets,201,CREATED,Intake 1-13,text,true,,252,994,2,2,http://192.168.50.104:5000/tickets,422907,0,4
+1791426540509,290913,POST /tickets,201,CREATED,Intake 1-14,text,true,,242,629,1,1,http://192.168.50.104:5000/tickets,290913,0,3
+1791426855646,8080,POST /tickets,201,CREATED,Intake 1-15,text,true,,250,1241,1,1,http://192.168.50.104:5000/tickets,8080,0,4
+1791426876321,13,GET /search,200,OK,Agent search 2-67,text,true,,1476,180,1,2,http://192.168.50.104:5000/search?q=foreclosure&limit=20,13,0,3
+1791426872113,6417,POST /tickets,201,CREATED,Intake 1-16,text,true,,250,1502,1,1,http://192.168.50.104:5000/tickets,6417,0,5
+1791426901503,14,GET /search,200,OK,Agent search 2-68,text,true,,22551,176,1,1,http://192.168.50.104:5000/search?q=dispute&limit=20,13,0,5
+1791426902458,10,GET /search,200,OK,Agent search 2-69,text,true,,10880,175,1,1,http://192.168.50.104:5000/search?q=refund&limit=20,9,0,2
+1791426912975,12,GET /search,200,OK,Agent search 2-70,text,true,,3953,181,1,1,http://192.168.50.104:5000/search?q=unauthorized&limit=20,12,0,4
+1791426919256,13,GET /search,200,OK,Agent search 2-71,text,true,,9793,183,1,1,http://192.168.50.104:5000/search?q=identity+theft&limit=20,12,0,4
+1791426923482,14,GET /stats,200,OK,Dashboard 3-20,text,true,,332,156,1,1,http://192.168.50.104:5000/stats,14,0,4

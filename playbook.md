@@ -93,6 +93,7 @@ Run for each model in this order: `deepseek-r1:1.5b`, `qwen3:4b`, `gemma3:4b`, `
    - `curl http://localhost:5000/health` reports the expected `model`, `seed` 89, `temperature` 0.
    - `docker compose exec ollama ollama list` shows the same digest as `scripts/models.lock.json` for this model.
    - After the warm-up (3.2), `docker compose logs ollama` reports CPU-only inference (no GPU detected).
+   - The running app logs run IDs: from the desktop, `curl.exe -H "X-Run-Id: check" http://<laptop IP>:5000/health`; on the laptop, `Get-Content logs\requests.log -Tail 1` must show `"run_id": "check"`. If the field is missing, `git pull` and rebuild before continuing.
 5. Record the repository commit hash: `git rev-parse HEAD`.
 
 ### 3.2 Warm-up (desktop)
@@ -119,7 +120,7 @@ Six runs per model: 50/h runs 1–3, then 100/h runs 1–3. Example for 50/h run
 
 This runs `jmeter/load_test.jmx` in non-GUI mode with ticket rate 50/h, search 214/h, stats 60/h, duration 20 min and run ID `<model>-50-r1`. Results go to `results/<model>/load/50/run1/results.jtl`; the script refuses to overwrite an existing run.
 
-After each run, wait until JMeter exits (all in-flight requests finished), then **2 minutes idle** before the next run.
+After each run, wait until JMeter exits, then **2 minutes idle** before the next run. JMeter does not wait for in-flight requests: when the schedule ends it closes any connection still waiting (recorded as `Socket closed`). The service keeps processing those tickets, so with a long backlog some work carries over into the gap or the next run; the service log shows how much (log lines with the previous run's ID after that run ended).
 
 The database is **not** reset between the six load runs. It grows by at most about 225 tickets per model, which does not materially change search cost at this scale.
 
@@ -222,3 +223,6 @@ results/
 | Date (SGT) | Change | Reason | Applies to |
 |---|---|---|---|
 | 2026-10-08, before any load run | Load runs shortened from 30 to 20 minutes | The first accuracy run (`deepseek-r1:1.5b`) showed single-request latencies of 3–12 s and runaway answers that each hit the 600 s timeout. Decided before any load run had started, and applied to all four models, so the models remain directly comparable | All load runs, all models |
+| 2026-10-08, after the `deepseek-r1:1.5b` session | The laptop ran `deepseek-r1:1.5b` with an app build from before the `X-Run-Id` logging change, so its log has no run IDs. Reconciled by session totals instead (every `.jtl` and accuracy request matched one log line per path, plus the warm-up) | Laptop had not pulled and rebuilt before the session. From `qwen3:4b` on, the reset includes a run-ID check (§3.1) | `deepseek-r1:1.5b` reconciliation only |
+| 2026-10-08, after the `deepseek-r1:1.5b` session | Durations logged inside the containers (`total_ms`, `classify_ms`, Ollama timings) run ~8.3% long versus the desktop: the 600 s timeout fired at 553.9 s by JMeter's clock, while wall-clock timestamps agree within ~1 s. JMeter latencies are used as authoritative; service-side durations are used only for proportions | Docker Desktop's VM monotonic clock runs fast under load; wall-clock time is periodically resynchronised | Interpretation of all service-side timings |
+| 2026-10-08, after the `deepseek-r1:1.5b` load runs | Correction: §3.4 originally assumed JMeter waits for in-flight requests at the end of a run; it closes them instead. Analysis reports these as "unanswered at run end", separate from service errors, and treats their latencies as lower bounds | Observed in the first model's `.jtl` files. Procedure unchanged for the remaining models, so all four are measured the same way | Analysis of all load runs |

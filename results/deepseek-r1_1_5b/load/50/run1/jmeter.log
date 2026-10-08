@@ -1,0 +1,445 @@
+2026-10-08 10:15:24,564 INFO o.a.j.u.JMeterUtils: Setting Locale to en_EN
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Loading user properties from: C:\apache-jmeter-5.6.3\bin\user.properties
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Loading system properties from: C:\apache-jmeter-5.6.3\bin\system.properties
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: host=192.168.50.104
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: ticket_rate=50
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: search_rate=214
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: stats_rate=60
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: duration=20
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: run_id=deepseek-r1_1_5b-50-r1
+2026-10-08 10:15:24,575 INFO o.a.j.JMeter: Setting JMeter property: jmeter.save.saveservice.output_format=csv
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: Copyright (c) 1998-2024 The Apache Software Foundation
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: Version 5.6.3
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: java.version=17
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: java.vm.name=Java HotSpot(TM) 64-Bit Server VM
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: os.name=Windows 10
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: os.arch=amd64
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: os.version=10.0
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: file.encoding=Cp1252
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: java.awt.headless=true
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: Max memory     =1073741824
+2026-10-08 10:15:24,580 INFO o.a.j.JMeter: Available Processors =20
+2026-10-08 10:15:24,584 INFO o.a.j.JMeter: Default Locale=English (EN)
+2026-10-08 10:15:24,585 INFO o.a.j.JMeter: JMeter  Locale=English (EN)
+2026-10-08 10:15:24,585 INFO o.a.j.JMeter: JMeterHome=C:\apache-jmeter-5.6.3
+2026-10-08 10:15:24,585 INFO o.a.j.JMeter: user.dir  =C:\Users\Ashley\Documents\GitHub\ICT3113_P2-3
+2026-10-08 10:15:24,585 INFO o.a.j.JMeter: PWD       =C:\Users\Ashley\Documents\GitHub\ICT3113_P2-3
+2026-10-08 10:15:24,586 INFO o.a.j.JMeter: IP: 192.168.50.172 Name: DESKTOP-FE7GKLN FullName: DESKTOP-FE7GKLN
+2026-10-08 10:15:24,592 INFO o.a.j.s.FileServer: Default base='C:\Users\Ashley\Documents\GitHub\ICT3113_P2-3'
+2026-10-08 10:15:24,594 INFO o.a.j.s.FileServer: Set new base='C:\Users\Ashley\Documents\GitHub\ICT3113_P2-3\jmeter'
+2026-10-08 10:15:24,668 INFO o.a.j.s.SaveService: Testplan (JMX) version: 2.2. Testlog (JTL) version: 2.2
+2026-10-08 10:15:24,678 INFO o.a.j.s.SaveService: Using SaveService properties version 5.0
+2026-10-08 10:15:24,680 INFO o.a.j.s.SaveService: Using SaveService properties file encoding UTF-8
+2026-10-08 10:15:24,682 INFO o.a.j.s.SaveService: Loading file: C:\Users\Ashley\Documents\GitHub\ICT3113_P2-3\jmeter\load_test.jmx
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/html is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xhtml+xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for application/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/xml is org.apache.jmeter.protocol.http.parser.LagartoBasedHtmlParser
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/vnd.wap.wml is org.apache.jmeter.protocol.http.parser.RegexpHTMLParser
+2026-10-08 10:15:24,710 INFO o.a.j.p.h.s.HTTPSamplerBase: Parser for text/css is org.apache.jmeter.protocol.http.parser.CssParser
+2026-10-08 10:15:24,720 INFO o.a.j.JMeter: Creating summariser <summary>
+2026-10-08 10:15:24,730 INFO o.a.j.e.StandardJMeterEngine: Running the test!
+2026-10-08 10:15:24,730 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-10-08 10:15:24,730 INFO o.a.j.s.SampleEvent: List of sample_variables: []
+2026-10-08 10:15:24,732 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must contain the string: '.functions.'
+2026-10-08 10:15:24,732 INFO o.a.j.e.u.CompoundVariable: Note: Function class names must not contain the string: '.gui.'
+2026-10-08 10:15:24,770 INFO o.a.j.JMeter: Running test (1791425724770)
+2026-10-08 10:15:24,777 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 1 : Intake
+2026-10-08 10:15:24,777 INFO o.a.j.e.StandardJMeterEngine: Starting 0 threads for group Intake.
+2026-10-08 10:15:24,777 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-10-08 10:15:24,778 INFO o.a.j.t.o.OpenModelThreadGroup: Starting OpenModelThreadGroup#1 with schedule rate(50/hour) random_arrivals(20 min)
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 2 : Agent search
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Starting 0 threads for group Agent search.
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-10-08 10:15:24,794 INFO o.a.j.t.o.OpenModelThreadGroup: Starting OpenModelThreadGroup#2 with schedule rate(214/hour) random_arrivals(20 min)
+2026-10-08 10:15:24,794 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting init
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Starting ThreadGroup: 3 : Dashboard
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Starting 0 threads for group Dashboard.
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: Thread will continue on error
+2026-10-08 10:15:24,794 INFO o.a.j.t.o.OpenModelThreadGroup: Starting OpenModelThreadGroup#3 with schedule rate(60/hour) random_arrivals(20 min)
+2026-10-08 10:15:24,794 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting init
+2026-10-08 10:15:24,794 INFO o.a.j.e.StandardJMeterEngine: All thread groups have been started
+2026-10-08 10:15:24,794 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting init
+2026-10-08 10:15:24,798 INFO o.a.j.t.o.PoissonArrivalsRamp: Generating 16 events, beginRate = 0.013888888888888888 / sec, endRate = 0.013888888888888888 / sec, duration = 1200.0 sec
+2026-10-08 10:15:24,798 INFO o.a.j.t.o.PoissonArrivalsRamp: Generating 71 events, beginRate = 0.059444444444444446 / sec, endRate = 0.059444444444444446 / sec, duration = 1200.0 sec
+2026-10-08 10:15:24,798 INFO o.a.j.t.o.PoissonArrivalsRamp: Generating 20 events, beginRate = 0.016666666666666666 / sec, endRate = 0.016666666666666666 / sec, duration = 1200.0 sec
+2026-10-08 10:15:26,344 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-1
+2026-10-08 10:15:26,345 INFO o.a.j.s.FileServer: Stored: narratives.txt
+2026-10-08 10:15:26,356 INFO o.a.j.p.h.s.HTTPHCAbstractImpl: Local host = DESKTOP-FE7GKLN
+2026-10-08 10:15:26,359 INFO o.a.j.p.h.s.HTTPHC4Impl: HTTP request retry count = 0
+2026-10-08 10:15:26,359 INFO o.a.j.s.SampleResult: Note: Sample TimeStamps are START times
+2026-10-08 10:15:26,359 INFO o.a.j.s.SampleResult: sampleresult.default.encoding is set to UTF-8
+2026-10-08 10:15:26,359 INFO o.a.j.s.SampleResult: sampleresult.useNanoTime=true
+2026-10-08 10:15:26,359 INFO o.a.j.s.SampleResult: sampleresult.nanoThreadSleep=5000
+2026-10-08 10:15:29,841 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-1
+2026-10-08 10:15:29,888 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-1
+2026-10-08 10:15:29,888 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-1
+2026-10-08 10:15:32,157 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-2
+2026-10-08 10:15:32,176 INFO o.a.j.r.Summariser: summary +      2 in 00:00:07 =    0.3/s Avg:    29 Min:    15 Max:    43 Err:     0 (0.00%) Active: 2 Started: 3 Finished: 1
+2026-10-08 10:15:32,176 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-2
+2026-10-08 10:15:32,177 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-2
+2026-10-08 10:15:38,115 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-1
+2026-10-08 10:15:38,116 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-1
+2026-10-08 10:15:45,760 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-1
+2026-10-08 10:15:45,761 INFO o.a.j.s.FileServer: Stored: search_terms.csv
+2026-10-08 10:15:45,782 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-1
+2026-10-08 10:15:45,782 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-1
+2026-10-08 10:15:49,573 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-2
+2026-10-08 10:16:01,454 INFO o.a.j.r.Summariser: summary +      3 in 00:00:29 =    0.1/s Avg:  7872 Min:    16 Max: 11879 Err:     0 (0.00%) Active: 1 Started: 5 Finished: 4
+2026-10-08 10:16:01,457 INFO o.a.j.r.Summariser: summary =      5 in 00:00:37 =    0.1/s Avg:  4735 Min:    15 Max: 11879 Err:     0 (0.00%)
+2026-10-08 10:16:01,457 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-2
+2026-10-08 10:16:01,458 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-2
+2026-10-08 10:16:04,741 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-3
+2026-10-08 10:16:04,755 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-3
+2026-10-08 10:16:04,755 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-3
+2026-10-08 10:16:12,433 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-2
+2026-10-08 10:16:12,449 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-2
+2026-10-08 10:16:12,449 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-2
+2026-10-08 10:16:15,281 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-3
+2026-10-08 10:16:21,517 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-3
+2026-10-08 10:16:21,537 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-3
+2026-10-08 10:16:21,537 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-3
+2026-10-08 10:16:27,819 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-3
+2026-10-08 10:16:27,819 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-3
+2026-10-08 10:16:32,269 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-4
+2026-10-08 10:16:32,286 INFO o.a.j.r.Summariser: summary +      5 in 00:00:31 =    0.2/s Avg:  2518 Min:    12 Max: 12535 Err:     0 (0.00%) Active: 1 Started: 10 Finished: 9
+2026-10-08 10:16:32,287 INFO o.a.j.r.Summariser: summary =     10 in 00:01:08 =    0.1/s Avg:  3626 Min:    12 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:16:32,288 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-4
+2026-10-08 10:16:32,288 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-4
+2026-10-08 10:16:36,836 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-5
+2026-10-08 10:16:36,850 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-5
+2026-10-08 10:16:36,850 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-5
+2026-10-08 10:16:38,879 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-6
+2026-10-08 10:16:38,899 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-6
+2026-10-08 10:16:38,899 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-6
+2026-10-08 10:16:40,802 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-7
+2026-10-08 10:16:40,817 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-7
+2026-10-08 10:16:40,817 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-7
+2026-10-08 10:16:42,416 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-8
+2026-10-08 10:16:42,433 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-8
+2026-10-08 10:16:42,434 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-8
+2026-10-08 10:16:52,417 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-4
+2026-10-08 10:17:01,923 INFO o.a.j.r.Summariser: summary +      5 in 00:00:30 =    0.2/s Avg:  1911 Min:    10 Max:  9504 Err:     0 (0.00%) Active: 1 Started: 15 Finished: 14
+2026-10-08 10:17:01,925 INFO o.a.j.r.Summariser: summary =     15 in 00:01:37 =    0.2/s Avg:  3055 Min:    10 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:17:01,926 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-4
+2026-10-08 10:17:01,926 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-4
+2026-10-08 10:17:06,169 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-9
+2026-10-08 10:17:06,180 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-9
+2026-10-08 10:17:06,180 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-9
+2026-10-08 10:17:18,167 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-10
+2026-10-08 10:17:18,183 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-10
+2026-10-08 10:17:18,183 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-10
+2026-10-08 10:17:25,025 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-11
+2026-10-08 10:17:25,040 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-11
+2026-10-08 10:17:25,041 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-11
+2026-10-08 10:17:31,125 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-12
+2026-10-08 10:17:31,138 INFO o.a.j.r.Summariser: summary +      4 in 00:00:29 =    0.1/s Avg:    11 Min:     9 Max:    13 Err:     0 (0.00%) Active: 1 Started: 19 Finished: 18
+2026-10-08 10:17:31,139 INFO o.a.j.r.Summariser: summary =     19 in 00:02:06 =    0.2/s Avg:  2414 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:17:31,139 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-12
+2026-10-08 10:17:31,139 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-12
+2026-10-08 10:17:42,978 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-13
+2026-10-08 10:17:42,990 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-13
+2026-10-08 10:17:42,990 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-13
+2026-10-08 10:18:07,307 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-14
+2026-10-08 10:18:07,323 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-14
+2026-10-08 10:18:07,323 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-14
+2026-10-08 10:18:12,531 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-4
+2026-10-08 10:18:12,545 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-4
+2026-10-08 10:18:12,545 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-4
+2026-10-08 10:18:21,103 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-15
+2026-10-08 10:18:21,118 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-15
+2026-10-08 10:18:21,118 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-15
+2026-10-08 10:18:34,723 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-5
+2026-10-08 10:18:34,739 INFO o.a.j.r.Summariser: summary +      5 in 00:01:04 =    0.1/s Avg:    11 Min:    10 Max:    13 Err:     0 (0.00%) Active: 1 Started: 24 Finished: 23
+2026-10-08 10:18:34,742 INFO o.a.j.r.Summariser: summary =     24 in 00:03:10 =    0.1/s Avg:  1913 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:18:34,742 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-5
+2026-10-08 10:18:34,742 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-5
+2026-10-08 10:18:40,990 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-16
+2026-10-08 10:18:41,006 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-16
+2026-10-08 10:18:41,006 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-16
+2026-10-08 10:18:54,163 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-17
+2026-10-08 10:18:54,178 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-17
+2026-10-08 10:18:54,178 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-17
+2026-10-08 10:19:01,842 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-18
+2026-10-08 10:19:01,856 INFO o.a.j.r.Summariser: summary +      3 in 00:00:27 =    0.1/s Avg:    12 Min:    10 Max:    14 Err:     0 (0.00%) Active: 1 Started: 27 Finished: 26
+2026-10-08 10:19:01,857 INFO o.a.j.r.Summariser: summary =     27 in 00:03:37 =    0.1/s Avg:  1702 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:19:01,858 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-18
+2026-10-08 10:19:01,858 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-18
+2026-10-08 10:19:21,808 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-5
+2026-10-08 10:19:32,463 INFO o.a.j.r.Summariser: summary +      1 in 00:00:31 =    0.0/s Avg: 10651 Min: 10651 Max: 10651 Err:     0 (0.00%) Active: 1 Started: 28 Finished: 27
+2026-10-08 10:19:32,465 INFO o.a.j.r.Summariser: summary =     28 in 00:04:08 =    0.1/s Avg:  2022 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:19:32,465 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-5
+2026-10-08 10:19:32,465 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-5
+2026-10-08 10:19:45,634 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-19
+2026-10-08 10:19:45,649 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-19
+2026-10-08 10:19:45,650 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-19
+2026-10-08 10:19:48,326 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-20
+2026-10-08 10:19:48,344 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-20
+2026-10-08 10:19:48,344 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-20
+2026-10-08 10:19:49,815 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-6
+2026-10-08 10:19:58,875 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-6
+2026-10-08 10:19:58,875 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-6
+2026-10-08 10:20:14,353 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-21
+2026-10-08 10:20:14,369 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-21
+2026-10-08 10:20:14,369 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-21
+2026-10-08 10:20:16,061 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-22
+2026-10-08 10:20:16,076 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-22
+2026-10-08 10:20:16,076 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-22
+2026-10-08 10:20:24,532 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-7
+2026-10-08 10:20:33,296 INFO o.a.j.r.Summariser: summary +      6 in 00:01:01 =    0.1/s Avg:  2978 Min:    12 Max:  9057 Err:     0 (0.00%) Active: 1 Started: 34 Finished: 33
+2026-10-08 10:20:33,297 INFO o.a.j.r.Summariser: summary =     34 in 00:05:09 =    0.1/s Avg:  2190 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:20:33,298 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-7
+2026-10-08 10:20:33,298 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-7
+2026-10-08 10:21:18,228 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-8
+2026-10-08 10:21:18,233 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-23
+2026-10-08 10:21:18,243 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-23
+2026-10-08 10:21:18,243 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-23
+2026-10-08 10:21:25,229 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-8
+2026-10-08 10:21:25,229 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-8
+2026-10-08 10:21:27,398 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-6
+2026-10-08 10:21:27,414 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-6
+2026-10-08 10:21:27,414 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-6
+2026-10-08 10:21:28,583 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-7
+2026-10-08 10:21:28,592 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-7
+2026-10-08 10:21:28,592 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-7
+2026-10-08 10:21:42,450 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-24
+2026-10-08 10:21:42,463 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-24
+2026-10-08 10:21:42,463 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-24
+2026-10-08 10:21:59,522 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-25
+2026-10-08 10:21:59,534 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-25
+2026-10-08 10:21:59,534 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-25
+2026-10-08 10:22:03,473 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-26
+2026-10-08 10:22:03,493 INFO o.a.j.r.Summariser: summary +      7 in 00:01:30 =    0.1/s Avg:  1009 Min:     9 Max:  6998 Err:     0 (0.00%) Active: 1 Started: 41 Finished: 40
+2026-10-08 10:22:03,494 INFO o.a.j.r.Summariser: summary =     41 in 00:06:39 =    0.1/s Avg:  1989 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:22:03,494 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-26
+2026-10-08 10:22:03,495 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-26
+2026-10-08 10:22:10,874 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-8
+2026-10-08 10:22:10,887 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-8
+2026-10-08 10:22:10,888 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-8
+2026-10-08 10:22:12,605 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-27
+2026-10-08 10:22:12,617 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-27
+2026-10-08 10:22:12,617 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-27
+2026-10-08 10:22:13,986 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-9
+2026-10-08 10:22:20,792 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-9
+2026-10-08 10:22:20,794 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-9
+2026-10-08 10:22:30,257 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-28
+2026-10-08 10:22:30,273 INFO o.a.j.r.Summariser: summary +      4 in 00:00:27 =    0.1/s Avg:  1709 Min:     9 Max:  6805 Err:     0 (0.00%) Active: 1 Started: 45 Finished: 44
+2026-10-08 10:22:30,273 INFO o.a.j.r.Summariser: summary =     45 in 00:07:06 =    0.1/s Avg:  1964 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:22:30,274 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-28
+2026-10-08 10:22:30,274 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-28
+2026-10-08 10:22:39,603 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-29
+2026-10-08 10:22:39,617 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-29
+2026-10-08 10:22:39,617 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-29
+2026-10-08 10:23:04,839 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-10
+2026-10-08 10:23:29,928 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-30
+2026-10-08 10:23:29,944 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-30
+2026-10-08 10:23:29,944 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-30
+2026-10-08 10:23:35,507 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-9
+2026-10-08 10:23:35,523 INFO o.a.j.r.Summariser: summary +      3 in 00:01:05 =    0.0/s Avg:    12 Min:    11 Max:    13 Err:     0 (0.00%) Active: 2 Started: 49 Finished: 47
+2026-10-08 10:23:35,524 INFO o.a.j.r.Summariser: summary =     48 in 00:08:11 =    0.1/s Avg:  1842 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:23:35,525 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-9
+2026-10-08 10:23:35,525 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-9
+2026-10-08 10:23:43,500 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-31
+2026-10-08 10:23:43,513 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-31
+2026-10-08 10:23:43,513 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-31
+2026-10-08 10:23:56,796 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-32
+2026-10-08 10:23:56,807 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-32
+2026-10-08 10:23:56,808 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-32
+2026-10-08 10:24:01,743 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-11
+2026-10-08 10:24:11,339 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-33
+2026-10-08 10:24:11,355 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-33
+2026-10-08 10:24:11,355 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-33
+2026-10-08 10:24:26,227 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-34
+2026-10-08 10:24:26,245 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-34
+2026-10-08 10:24:26,245 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-34
+2026-10-08 10:24:37,698 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-35
+2026-10-08 10:24:37,715 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-35
+2026-10-08 10:24:37,716 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-35
+2026-10-08 10:25:04,676 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-36
+2026-10-08 10:25:04,693 INFO o.a.j.r.Summariser: summary +      6 in 00:01:29 =    0.1/s Avg:    13 Min:    11 Max:    15 Err:     0 (0.00%) Active: 3 Started: 56 Finished: 53
+2026-10-08 10:25:04,694 INFO o.a.j.r.Summariser: summary =     54 in 00:09:40 =    0.1/s Avg:  1639 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:25:04,695 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-36
+2026-10-08 10:25:04,695 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-36
+2026-10-08 10:25:18,287 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-37
+2026-10-08 10:25:18,303 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-37
+2026-10-08 10:25:18,303 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-37
+2026-10-08 10:25:24,303 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-12
+2026-10-08 10:26:00,549 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-38
+2026-10-08 10:26:00,565 INFO o.a.j.r.Summariser: summary +      2 in 00:00:56 =    0.0/s Avg:    14 Min:    14 Max:    14 Err:     0 (0.00%) Active: 4 Started: 59 Finished: 55
+2026-10-08 10:26:00,565 INFO o.a.j.r.Summariser: summary =     56 in 00:10:36 =    0.1/s Avg:  1581 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:26:00,565 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-38
+2026-10-08 10:26:00,565 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-38
+2026-10-08 10:26:15,852 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-39
+2026-10-08 10:26:15,867 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-39
+2026-10-08 10:26:15,867 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-39
+2026-10-08 10:26:26,012 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-40
+2026-10-08 10:26:26,027 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-40
+2026-10-08 10:26:26,028 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-40
+2026-10-08 10:26:42,918 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-13
+2026-10-08 10:26:58,351 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-41
+2026-10-08 10:26:58,373 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-41
+2026-10-08 10:26:58,373 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-41
+2026-10-08 10:27:07,343 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-42
+2026-10-08 10:27:07,362 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-42
+2026-10-08 10:27:07,362 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-42
+2026-10-08 10:27:10,955 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-10
+2026-10-08 10:27:10,971 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-10
+2026-10-08 10:27:10,971 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-10
+2026-10-08 10:27:19,503 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-11
+2026-10-08 10:27:19,517 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-11
+2026-10-08 10:27:19,517 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-11
+2026-10-08 10:27:26,249 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-43
+2026-10-08 10:27:26,263 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-43
+2026-10-08 10:27:26,263 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-43
+2026-10-08 10:27:26,727 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-12
+2026-10-08 10:27:26,740 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-12
+2026-10-08 10:27:26,740 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-12
+2026-10-08 10:27:40,770 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-44
+2026-10-08 10:27:40,786 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-44
+2026-10-08 10:27:40,786 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-44
+2026-10-08 10:27:43,088 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-45
+2026-10-08 10:27:43,101 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-45
+2026-10-08 10:27:43,101 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-45
+2026-10-08 10:27:52,872 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-46
+2026-10-08 10:27:52,889 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-46
+2026-10-08 10:27:52,890 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-46
+2026-10-08 10:27:54,824 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-13
+2026-10-08 10:27:54,843 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-13
+2026-10-08 10:27:54,843 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-13
+2026-10-08 10:28:02,595 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-47
+2026-10-08 10:28:02,607 INFO o.a.j.r.Summariser: summary +     13 in 00:02:02 =    0.1/s Avg:    13 Min:    11 Max:    19 Err:     0 (0.00%) Active: 5 Started: 73 Finished: 68
+2026-10-08 10:28:02,607 INFO o.a.j.r.Summariser: summary =     69 in 00:12:38 =    0.1/s Avg:  1285 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:28:02,607 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-47
+2026-10-08 10:28:02,607 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-47
+2026-10-08 10:28:02,679 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-48
+2026-10-08 10:28:02,693 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-48
+2026-10-08 10:28:02,693 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-48
+2026-10-08 10:28:03,110 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-49
+2026-10-08 10:28:03,125 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-49
+2026-10-08 10:28:03,125 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-49
+2026-10-08 10:28:22,518 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-50
+2026-10-08 10:28:22,531 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-50
+2026-10-08 10:28:22,531 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-50
+2026-10-08 10:28:24,738 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-14
+2026-10-08 10:28:24,751 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-14
+2026-10-08 10:28:24,752 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-14
+2026-10-08 10:28:39,456 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-51
+2026-10-08 10:28:39,471 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-51
+2026-10-08 10:28:39,471 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-51
+2026-10-08 10:28:52,730 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-52
+2026-10-08 10:28:52,742 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-52
+2026-10-08 10:28:52,742 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-52
+2026-10-08 10:28:53,101 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-53
+2026-10-08 10:28:53,116 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-53
+2026-10-08 10:28:53,116 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-53
+2026-10-08 10:29:00,506 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-14
+2026-10-08 10:29:13,885 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-15
+2026-10-08 10:29:13,899 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-15
+2026-10-08 10:29:13,899 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-15
+2026-10-08 10:29:16,644 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-16
+2026-10-08 10:29:16,658 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-16
+2026-10-08 10:29:16,659 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-16
+2026-10-08 10:29:59,946 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-17
+2026-10-08 10:29:59,962 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-17
+2026-10-08 10:29:59,962 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-17
+2026-10-08 10:30:17,232 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-54
+2026-10-08 10:30:17,248 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-54
+2026-10-08 10:30:17,248 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-54
+2026-10-08 10:30:30,059 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-55
+2026-10-08 10:30:30,078 INFO o.a.j.r.Summariser: summary +     12 in 00:02:27 =    0.1/s Avg:    12 Min:    11 Max:    16 Err:     0 (0.00%) Active: 6 Started: 86 Finished: 80
+2026-10-08 10:30:30,078 INFO o.a.j.r.Summariser: summary =     81 in 00:15:05 =    0.1/s Avg:  1097 Min:     9 Max: 12535 Err:     0 (0.00%)
+2026-10-08 10:30:30,079 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-55
+2026-10-08 10:30:30,079 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-55
+2026-10-08 10:30:37,705 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-56
+2026-10-08 10:30:37,720 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-56
+2026-10-08 10:30:37,720 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-56
+2026-10-08 10:31:20,439 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-57
+2026-10-08 10:31:20,454 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-57
+2026-10-08 10:31:20,454 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-57
+2026-10-08 10:31:42,513 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-58
+2026-10-08 10:31:42,527 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-58
+2026-10-08 10:31:42,527 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-58
+2026-10-08 10:31:48,580 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-59
+2026-10-08 10:31:48,593 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-59
+2026-10-08 10:31:48,593 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-59
+2026-10-08 10:32:12,418 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-60
+2026-10-08 10:32:12,435 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-60
+2026-10-08 10:32:12,435 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-60
+2026-10-08 10:32:17,720 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-61
+2026-10-08 10:32:17,737 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-61
+2026-10-08 10:32:17,737 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-61
+2026-10-08 10:32:18,793 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-10
+2026-10-08 10:32:18,794 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-10
+2026-10-08 10:32:30,028 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-18
+2026-10-08 10:32:30,045 INFO o.a.j.r.Summariser: summary +      8 in 00:02:00 =    0.1/s Avg: 69255 Min:    11 Max: 553950 Err:     1 (12.50%) Active: 5 Started: 93 Finished: 88
+2026-10-08 10:32:30,045 INFO o.a.j.r.Summariser: summary =     89 in 00:17:05 =    0.1/s Avg:  7223 Min:     9 Max: 553950 Err:     1 (1.12%)
+2026-10-08 10:32:30,045 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-18
+2026-10-08 10:32:30,045 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-18
+2026-10-08 10:32:39,059 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-19
+2026-10-08 10:32:39,077 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-19
+2026-10-08 10:32:39,077 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-19
+2026-10-08 10:32:54,101 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-62
+2026-10-08 10:32:54,116 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-62
+2026-10-08 10:32:54,116 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-62
+2026-10-08 10:33:10,239 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-63
+2026-10-08 10:33:10,256 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-63
+2026-10-08 10:33:10,256 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-63
+2026-10-08 10:33:11,511 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-64
+2026-10-08 10:33:11,525 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-64
+2026-10-08 10:33:11,525 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-64
+2026-10-08 10:33:15,685 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-11
+2026-10-08 10:33:15,685 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-11
+2026-10-08 10:33:27,542 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-12
+2026-10-08 10:33:27,542 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-12
+2026-10-08 10:33:34,962 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-65
+2026-10-08 10:33:34,981 INFO o.a.j.r.Summariser: summary +      7 in 00:01:05 =    0.1/s Avg: 148178 Min:    11 Max: 553938 Err:     1 (14.29%) Active: 3 Started: 98 Finished: 95
+2026-10-08 10:33:34,982 INFO o.a.j.r.Summariser: summary =     96 in 00:18:10 =    0.1/s Avg: 17501 Min:     9 Max: 553950 Err:     2 (2.08%)
+2026-10-08 10:33:34,982 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-65
+2026-10-08 10:33:34,982 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-65
+2026-10-08 10:33:37,133 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-66
+2026-10-08 10:33:37,148 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-66
+2026-10-08 10:33:37,148 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-66
+2026-10-08 10:33:45,827 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-13
+2026-10-08 10:33:45,828 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-13
+2026-10-08 10:33:51,422 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-14
+2026-10-08 10:33:51,422 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-14
+2026-10-08 10:34:15,644 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-15
+2026-10-08 10:34:23,726 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-15
+2026-10-08 10:34:23,726 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-15
+2026-10-08 10:34:32,110 INFO o.a.j.t.JMeterThread: Thread started: Intake 1-16
+2026-10-08 10:34:32,111 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, so will wait for 52 sec till the end of the schedule
+2026-10-08 10:34:36,320 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-67
+2026-10-08 10:34:36,335 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-67
+2026-10-08 10:34:36,335 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-67
+2026-10-08 10:34:38,530 INFO o.a.j.t.JMeterThread: Thread is done: Intake 1-16
+2026-10-08 10:34:38,530 INFO o.a.j.t.JMeterThread: Thread finished: Intake 1-16
+2026-10-08 10:35:01,501 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-68
+2026-10-08 10:35:01,517 INFO o.a.j.r.Summariser: summary +      7 in 00:01:27 =    0.1/s Avg: 104051 Min:    13 Max: 422908 Err:     0 (0.00%) Active: 1 Started: 103 Finished: 102
+2026-10-08 10:35:01,518 INFO o.a.j.r.Summariser: summary =    103 in 00:19:37 =    0.1/s Avg: 23383 Min:     9 Max: 553950 Err:     2 (1.94%)
+2026-10-08 10:35:01,519 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-68
+2026-10-08 10:35:01,519 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-68
+2026-10-08 10:35:02,456 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-69
+2026-10-08 10:35:02,467 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-69
+2026-10-08 10:35:02,467 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-69
+2026-10-08 10:35:12,974 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-70
+2026-10-08 10:35:12,987 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-70
+2026-10-08 10:35:12,987 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-70
+2026-10-08 10:35:19,254 INFO o.a.j.t.JMeterThread: Thread started: Agent search 2-71
+2026-10-08 10:35:19,254 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, so will wait for 5 sec till the end of the schedule
+2026-10-08 10:35:19,269 INFO o.a.j.t.JMeterThread: Thread is done: Agent search 2-71
+2026-10-08 10:35:19,269 INFO o.a.j.t.JMeterThread: Thread finished: Agent search 2-71
+2026-10-08 10:35:23,480 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, so will wait for 1 sec till the end of the schedule
+2026-10-08 10:35:23,481 INFO o.a.j.t.JMeterThread: Thread started: Dashboard 3-20
+2026-10-08 10:35:23,496 INFO o.a.j.t.JMeterThread: Thread is done: Dashboard 3-20
+2026-10-08 10:35:23,496 INFO o.a.j.t.JMeterThread: Thread finished: Dashboard 3-20
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, will shutdown the thread pool
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, will shutdown the thread pool
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: There will be no more events, will shutdown the thread pool
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting done
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting done
+2026-10-08 10:35:24,733 INFO o.a.j.t.o.OpenModelThreadGroup: Thread starting done
+2026-10-08 10:35:24,736 INFO o.a.j.e.StandardJMeterEngine: Notifying test listeners of end of test
+2026-10-08 10:35:24,736 INFO o.a.j.s.FileServer: Close: narratives.txt
+2026-10-08 10:35:24,736 INFO o.a.j.s.FileServer: Close: search_terms.csv
+2026-10-08 10:35:24,739 INFO o.a.j.r.Summariser: summary +      4 in 00:00:23 =    0.2/s Avg:    12 Min:    10 Max:    14 Err:     0 (0.00%) Active: 0 Started: 107 Finished: 107
+2026-10-08 10:35:24,739 INFO o.a.j.r.Summariser: summary =    107 in 00:20:00 =    0.1/s Avg: 22509 Min:     9 Max: 553950 Err:     2 (1.87%)
