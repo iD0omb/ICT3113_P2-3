@@ -159,14 +159,19 @@ Three **Open Model Thread Groups** run simultaneously. All arrivals are open-loo
 ## 5. Stress test
 
 - **Model:** `llama3.1:8b`, the slowest candidate, so its limit falls within a practical range of arrival rates.
-- **Schedule:** intake only, `rate(50/hour) random_arrivals(60 min) rate(800/hour)`. Arrivals ramp linearly from 50/h to 800/h over 60 minutes, which is 2x the predicted capacity of about 360/h.
-- **Command:** as in 3.4, with `-Jrun_id=llama3_1_8b-stress` and the stress schedule, results to `results/stress/llama3_1_8b/results.jtl`.
+- **Schedule:** intake only (`jmeter/stress_test.jmx`), `rate(50/hour) random_arrivals(60 min) rate(<end rate>/hour)`. Arrivals ramp linearly from 50/h to the end rate over 60 minutes.
+- **End rate:** 2 x the capacity implied by the model's measured median single-request latency from its accuracy run, i.e. 2 x 3600 / median seconds, rounded up to the next 100/h. This places the limit near the middle of the ramp. (Originally fixed at 800/h, 2x the *predicted* capacity; see Deviations.)
+- **Command** (desktop, after the `llama3.1:8b` load runs, without resetting the laptop):
+  ```
+  .\jmeter\run_stress.ps1 -Model llama3.1:8b -EndRate <end rate> -SutHost <laptop IP>
+  ```
+  Run ID `llama3_1_8b-stress`; results to `results/stress/llama3_1_8b/results.jtl`; refuses to overwrite an existing run.
 - **Limit definition:** split the run into 5-minute windows. The **sustainable limit** is the arrival rate of the last window in which:
   - completed tickets are ≥ 90% of tickets sent, and
   - p95 latency is no higher than the previous window's.
 
   After that point the queue grows without bound. Also record the arrival rate at the first error (timeout or 5xx).
-- **If no limit is reached by 800/h:** repeat with the ceiling doubled.
+- **If no limit is reached by the end rate:** repeat with the end rate doubled.
 
 ## 6. Analysis
 
@@ -225,6 +230,7 @@ results/
 | 2026-10-08, before any load run | Load runs shortened from 30 to 20 minutes | The first accuracy run (`deepseek-r1:1.5b`) showed single-request latencies of 3–12 s and runaway answers that each hit the 600 s timeout. Decided before any load run had started, and applied to all four models, so the models remain directly comparable | All load runs, all models |
 | 2026-10-08, after the `deepseek-r1:1.5b` session | The laptop ran `deepseek-r1:1.5b` with an app build from before the `X-Run-Id` logging change, so its log has no run IDs. Reconciled by session totals instead (every `.jtl` and accuracy request matched one log line per path, plus the warm-up) | Laptop had not pulled and rebuilt before the session. From `qwen3:4b` on, the reset includes a run-ID check (§3.1) | `deepseek-r1:1.5b` reconciliation only |
 | 2026-10-08, after the `deepseek-r1:1.5b` session | Durations logged inside the containers (`total_ms`, `classify_ms`, Ollama timings) run ~8.3% long versus the desktop: the 600 s timeout fired at 553.9 s by JMeter's clock, while wall-clock timestamps agree within ~1 s. JMeter latencies are used as authoritative; service-side durations are used only for proportions | Docker Desktop's VM monotonic clock runs fast under load; wall-clock time is periodically resynchronised | Interpretation of all service-side timings |
+| 2026-10-08, before the stress test | Stress ramp end rate set from the measured median single-request latency of `llama3.1:8b` (2 x 3600 / median, rounded up to 100/h) instead of the fixed 800/h derived from the predicted 10 s latency | The 4B models measured 1.6–1.9 s median against predicted 5 s, so a fixed 800/h ramp risked ending before the limit and forcing a repeat run. Decided before the stress test started | Stress test |
 | 2026-10-08, after the `gemma3:4b` session | Limitation found: each JMeter launch reads `narratives.txt` from line 1, so every 50/h run sent tickets 1–16 and every 100/h run tickets 1–33, in the same order, for every model. Procedure kept unchanged for `llama3.1:8b` so all four models receive identical traffic. Run-to-run spread therefore reflects arrival timing only, and the load tests cover only the first 33 of 1,000 team tickets (350–1,675 characters). Recommended fix for future runs: a differently seeded shuffle of `narratives.txt` per run, so runs sample the full ticket population | Confirmed from the service log (identical `chars` and `prompt_eval_count` sequences across runs) | Interpretation of all load runs |
 | 2026-10-08, after the `gemma3:4b` session | Observation: R1's backlog clause (last-third p95 ≤ first-third p95) compares the single slowest of ~5 tickets per third at 50/h, so ticket-length variation alone can fail it. Verdicts are reported as defined, alongside the evidence on backlog (errors, unanswered tickets, latency range) | `gemma3:4b` failed the clause in 2 of 3 runs with 0 errors, 0 unanswered tickets and all latencies ≤ 3.3 s | Reporting of R1 |
 | 2026-10-08, after the `deepseek-r1:1.5b` load runs | Correction: §3.4 originally assumed JMeter waits for in-flight requests at the end of a run; it closes them instead. Analysis reports these as "unanswered at run end", separate from service errors, and treats their latencies as lower bounds | Observed in the first model's `.jtl` files. Procedure unchanged for the remaining models, so all four are measured the same way | Analysis of all load runs |
