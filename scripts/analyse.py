@@ -8,9 +8,11 @@ results/<model>/requests.log (for reconciliation). Never modifies them.
 import argparse
 import csv
 import json
+import re
 import statistics
 import sys
 from collections import Counter, defaultdict
+from datetime import datetime
 from pathlib import Path
 
 from accuracy_run import CATEGORIES, TRUIST_MIX, pct
@@ -18,6 +20,9 @@ from accuracy_run import CATEGORIES, TRUIST_MIX, pct
 REPO = Path(__file__).resolve().parent.parent
 RESULTS = REPO / "results"
 LABEL_TO_PATH = {"POST /tickets": "/tickets", "GET /search": "/search", "GET /stats": "/stats"}
+# Service-side durations run long versus the desktop clock: the 600 s timeout fired at 553.9 s (playbook, Deviations).
+CLOCK_SCALE = 600 / 553.9
+WINDOW_MS = 5 * 60_000
 
 
 def read_csv(path):
@@ -180,6 +185,147 @@ def load_section(models, duration_min):
     return out
 
 
+# --- Detailed reconciliation ----------------------------------------------------
+
+def load_log(model):
+    path = RESULTS / model / "requests.log"
+    if not path.exists():
+        return None
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def server_start_ms(entry):
+    """When the app began handling the request, on the desktop's time scale (log ts is when it finished)."""
+    return datetime.fromisoformat(entry["ts"]).timestamp() * 1000 - entry["total_ms"] / CLOCK_SCALE
+
+
+def jtl_runs(model):
+    """(run_id, rows) for every load and stress run of a model, in time order."""
+    runs = []
+    for jtl in (RESULTS / model / "load").glob("*/run*/results.jtl"):
+        runs.append((f"{model}-{jtl.parent.parent.name}-r{jtl.parent.name[3:]}", read_csv(jtl)))
+    stress = RESULTS / "stress" / model / "results.jtl"
+    if stress.exists():
+        runs.append((f"{model}-stress", read_csv(stress)))
+    return sorted(runs, key=lambda r: min(int(x["timeStamp"]) for x in r[1]))
+
+
+def log_lines_for_runs(log, runs):
+    """Log lines per run: by run ID when logged, otherwise by server start time (the run's first send
+    until the next run's first send). Time assignment is exact for fast requests; a ticket that waited
+    across a run boundary would be attributed to the next run."""
+    if any("run_id" in e for e in log):
+        return {run_id: [e for e in log if e.get("run_id") == run_id] for run_id, _ in runs}
+    starts = [min(int(x["timeStamp"]) for x in rows) - 5000 for _, rows in runs] + [float("inf")]
+    return {run_id: [e for e in log if starts[i] <= server_start_ms(e) < starts[i + 1]]
+            for i, (run_id, _) in enumerate(runs)}
+
+
+def reconciliation_section(models):
+    narratives = (REPO / "jmeter" / "narratives.txt").read_text(encoding="utf-8").splitlines()
+    out = ["## Detailed reconciliation", "",
+           "### Accuracy run: every row in `accuracy.csv` against the service log", "",
+           "| Model | Stored tickets (have `ticket_id`) | Found in log | Same category in log | "
+           "Failed requests (client) | Failed `/tickets` lines in log before the first load run |",
+           "|---|---|---|---|---|---|"]
+    for model in models:
+        log, acc_path = load_log(model), RESULTS / model / "accuracy" / "accuracy.csv"
+        if log is None or not acc_path.exists():
+            continue
+        rows = read_csv(acc_path)
+        by_id = {e["ticket_id"]: e for e in log if e.get("path") == "/tickets" and e.get("ticket_id") is not None}
+        stored = [r for r in rows if r["ticket_id"]]
+        found = [r for r in stored if int(r["ticket_id"]) in by_id]
+        same = [r for r in found if by_id[int(r["ticket_id"])].get("category") == r["predicted"]]
+        runs = jtl_runs(model)
+        first_load = min(int(x["timeStamp"]) for x in runs[0][1]) if runs else float("inf")
+        failed_log = sum(1 for e in log if e.get("path") == "/tickets" and e["status"] != 201
+                         and server_start_ms(e) < first_load)
+        out.append(f"| {model} | {len(stored)} | {len(found)} | {len(same)} | "
+                   f"{len(rows) - len(stored)} | {failed_log} |")
+
+    out += ["", "### Load and stress runs: request-level matching of `POST /tickets`", "",
+            "JMeter sends narratives in file order from line 1, so the k-th ticket of a run is line k of "
+            "`jmeter/narratives.txt`. Log lines are ordered by server start time and compared by narrative length.", "",
+            "| Model | Run | Sent (jtl) | Log lines | Same lengths (multiset) | Same length in send order | "
+            "Status agrees (201↔201, error↔error) | Sent but never logged |",
+            "|---|---|---|---|---|---|---|---|"]
+    for model in models:
+        log = load_log(model)
+        if log is None:
+            continue
+        runs = jtl_runs(model)
+        per_run = log_lines_for_runs(log, runs)
+        for run_id, rows in runs:
+            sent = sorted((r for r in rows if r["label"] == "POST /tickets"), key=lambda r: int(r["timeStamp"]))
+            logged = sorted((e for e in per_run[run_id] if e["path"] == "/tickets"), key=server_start_ms)
+            expected = [len(narratives[i % len(narratives)]) for i in range(len(sent))]
+            got = [e["chars"] for e in logged]
+            multiset = "yes" if Counter(got) <= Counter(expected) else "no"
+            in_order = sum(a == b for a, b in zip(expected, got))
+            answered = [(s, e) for s, e in zip(sent, logged) if "Socket closed" not in s["responseMessage"]]
+            status_ok = sum((s["responseCode"] == "201") == (e["status"] == 201) for s, e in answered)
+            out.append(f"| {model} | {run_id.removeprefix(model + '-')} | {len(sent)} | {len(logged)} | {multiset} | "
+                       f"{in_order}/{min(len(sent), len(logged))} | {status_ok}/{len(answered)} | "
+                       f"{max(0, len(sent) - len(logged))} |")
+    out += ["", "Sent but never logged: the request was still waiting in the connection queue when JMeter closed it "
+            "at the end of the run, so the app never received it.",
+            "Status disagreements in the stress run: JMeter's 600 s read timeout fired first (client error) while the "
+            "service still completed the ticket (logged 201), because time spent queued before the app accepted the "
+            "connection counts towards JMeter's timeout but not the app's.",
+            "Send-order mismatches of a few tickets: when many requests are waiting, the app's 16 threads can pick "
+            "them up slightly out of arrival order; the length multiset still matches."]
+    return out
+
+
+# --- Stress test -----------------------------------------------------------------
+
+def stress_section():
+    out = []
+    for jtl in sorted((RESULTS / "stress").glob("*/results.jtl")):
+        model = jtl.parent.name
+        rows = [r for r in read_csv(jtl) if r["label"] == "POST /tickets"]
+        schedule = re.search(r"rate\((\d+)/hour\) random_arrivals\((\d+) min\) rate\((\d+)/hour\)",
+                             (jtl.parent / "jmeter.log").read_text(encoding="utf-8", errors="replace"))
+        start_rate, minutes, end_rate = (int(x) for x in schedule.groups())
+        t0 = min(int(r["timeStamp"]) for r in rows)
+        done = [int(r["timeStamp"]) + int(r["elapsed"]) - t0 for r in rows if r["success"] == "true"]
+        out += [f"## Stress test: {model} (ramp {start_rate} → {end_rate} tickets/h over {minutes} min)", "",
+                "| Window (min) | Planned arrival rate (/h) | Sent | Sent (/h) | Completed OK (% of sent) | "
+                "Timeouts/errors | Unanswered at end | p50 (s) | p95 (s) | Completions finishing in window (/h) |",
+                "|---|---|---|---|---|---|---|---|---|---|"]
+        windows = []
+        for w in range(minutes * 60_000 // WINDOW_MS):
+            sent = [r for r in rows if w * WINDOW_MS <= int(r["timeStamp"]) - t0 < (w + 1) * WINDOW_MS]
+            if not sent:
+                continue
+            ok = sum(r["success"] == "true" for r in sent)
+            cut = sum(r["success"] != "true" and "Socket closed" in r["responseMessage"] for r in sent)
+            elapsed = sorted(int(r["elapsed"]) for r in sent)
+            finished = sum(w * WINDOW_MS <= t < (w + 1) * WINDOW_MS for t in done)
+            planned = start_rate + (end_rate - start_rate) * (w + 0.5) * 5 / minutes
+            windows.append(dict(w=w, sent=len(sent), ok=ok, p95=pct(elapsed, .95) / 1000,
+                                planned=planned, finished=finished * 12, errors=len(sent) - ok - cut))
+            out.append(f"| {w * 5}–{w * 5 + 5} | {planned:.0f} | {len(sent)} | {len(sent) * 12} | "
+                       f"{ok} ({100 * ok / len(sent):.0f}%) | {len(sent) - ok - cut} | {cut} | "
+                       f"{pct(elapsed, .5) / 1000:.1f} | {pct(elapsed, .95) / 1000:.1f} | {finished * 12} |")
+        strict = [x for i, x in enumerate(windows)
+                  if x["ok"] >= 0.9 * x["sent"] and (i == 0 or x["p95"] <= windows[i - 1]["p95"])]
+        plateau = sorted(x["finished"] for x in windows)[-5:]
+        r2 = next((x for x in windows if x["p95"] > 60), None)
+        first_err = next((x for x in windows if x["errors"]), None)
+        out += ["",
+                f"- Playbook limit rule (last window with ≥ 90% completed and p95 not above the previous window): "
+                f"{strict[-1]['sent'] * 12 if strict else 'none'}/h sent (window {strict[-1]['w'] * 5}–{strict[-1]['w'] * 5 + 5} min)."
+                if strict else "- Playbook limit rule: no qualifying window.",
+                f"- Maximum completion rate (median of the 5 busiest windows): {statistics.median(plateau):.0f} tickets/h.",
+                f"- p95 first exceeds 60 s (R2) at about {r2['sent'] * 12}/h sent (window {r2['w'] * 5}–{r2['w'] * 5 + 5} min)."
+                if r2 else "- p95 never exceeded 60 s.",
+                f"- First timeouts/errors at about {first_err['sent'] * 12}/h sent (window {first_err['w'] * 5}–{first_err['w'] * 5 + 5} min)."
+                if first_err else "- No timeouts or errors.", ""]
+    return out
+
+
 def main():
     global RESULTS
     parser = argparse.ArgumentParser()
@@ -190,6 +336,7 @@ def main():
     models = sorted(p.name for p in RESULTS.iterdir() if p.is_dir() and p.name != "stress")
     lines = ["# Results summary", "", "Generated by `scripts/analyse.py` from the files in `results/`.", ""]
     lines += accuracy_section(models) + [""] + load_section(models, args.duration)
+    lines += [""] + stress_section() + reconciliation_section(models)
     out = RESULTS / "summary.md"
     out.write_text("\n".join(lines) + "\n", encoding="utf-8")
     sys.stdout.reconfigure(encoding="utf-8", errors="replace")

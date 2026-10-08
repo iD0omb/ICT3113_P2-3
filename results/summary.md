@@ -88,12 +88,12 @@ Service errors: the service answered with an error (e.g. 502 after a runaway ans
 | gemma3_4b | 100 | run1 | match |
 | gemma3_4b | 100 | run2 | match |
 | gemma3_4b | 100 | run3 | match |
-| llama3_1_8b | 50 | run1 | log not copied yet |
-| llama3_1_8b | 50 | run2 | log not copied yet |
-| llama3_1_8b | 50 | run3 | log not copied yet |
-| llama3_1_8b | 100 | run1 | log not copied yet |
-| llama3_1_8b | 100 | run2 | log not copied yet |
-| llama3_1_8b | 100 | run3 | log not copied yet |
+| llama3_1_8b | 50 | run1 | match |
+| llama3_1_8b | 50 | run2 | match |
+| llama3_1_8b | 50 | run3 | match |
+| llama3_1_8b | 100 | run1 | match |
+| llama3_1_8b | 100 | run2 | match |
+| llama3_1_8b | 100 | run3 | match |
 | qwen3_4b | 50 | run1 | match |
 | qwen3_4b | 50 | run2 | match |
 | qwen3_4b | 50 | run3 | match |
@@ -111,8 +111,80 @@ Service errors: the service answered with an error (e.g. 502 after a runaway ans
 | gemma3_4b | /tickets | 297 | 298 | +1 |
 | gemma3_4b | /search | 426 | 426 | +0 |
 | gemma3_4b | /stats | 120 | 120 | +0 |
+| llama3_1_8b | /tickets | 297 | 1555 | +1258 |
+| llama3_1_8b | /search | 426 | 426 | +0 |
+| llama3_1_8b | /stats | 120 | 120 | +0 |
 | qwen3_4b | /tickets | 297 | 298 | +1 |
 | qwen3_4b | /search | 426 | 426 | +0 |
 | qwen3_4b | /stats | 120 | 120 | +0 |
 
 A /tickets difference of +1 is the warm-up ticket, which is sent outside JMeter and the accuracy run.
+
+## Stress test: llama3_1_8b (ramp 50 → 3200 tickets/h over 60 min)
+
+| Window (min) | Planned arrival rate (/h) | Sent | Sent (/h) | Completed OK (% of sent) | Timeouts/errors | Unanswered at end | p50 (s) | p95 (s) | Completions finishing in window (/h) |
+|---|---|---|---|---|---|---|---|---|---|
+| 0–5 | 181 | 19 | 228 | 19 (100%) | 0 | 0 | 1.6 | 3.8 | 228 |
+| 5–10 | 444 | 48 | 576 | 48 (100%) | 0 | 0 | 3.1 | 5.5 | 564 |
+| 10–15 | 706 | 49 | 588 | 49 (100%) | 0 | 0 | 3.7 | 11.7 | 588 |
+| 15–20 | 969 | 87 | 1044 | 87 (100%) | 0 | 0 | 5.5 | 14.5 | 1044 |
+| 20–25 | 1231 | 115 | 1380 | 115 (100%) | 0 | 0 | 13.6 | 35.1 | 1236 |
+| 25–30 | 1494 | 128 | 1536 | 128 (100%) | 0 | 0 | 34.1 | 61.5 | 1380 |
+| 30–35 | 1756 | 140 | 1680 | 140 (100%) | 0 | 0 | 96.0 | 139.8 | 1356 |
+| 35–40 | 2019 | 174 | 2088 | 174 (100%) | 0 | 0 | 205.4 | 282.6 | 1416 |
+| 40–45 | 2281 | 202 | 2424 | 202 (100%) | 0 | 0 | 354.4 | 448.7 | 1368 |
+| 45–50 | 2544 | 201 | 2412 | 125 (62%) | 54 | 22 | 563.9 | 600.0 | 1500 |
+| 50–55 | 2806 | 228 | 2736 | 0 (0%) | 0 | 228 | 426.7 | 552.5 | 1512 |
+| 55–60 | 3069 | 233 | 2796 | 0 (0%) | 0 | 233 | 134.6 | 249.9 | 852 |
+
+- Playbook limit rule (last window with ≥ 90% completed and p95 not above the previous window): 228/h sent (window 0–5 min).
+- Maximum completion rate (median of the 5 busiest windows): 1416 tickets/h.
+- p95 first exceeds 60 s (R2) at about 1536/h sent (window 25–30 min).
+- First timeouts/errors at about 2412/h sent (window 45–50 min).
+
+## Detailed reconciliation
+
+### Accuracy run: every row in `accuracy.csv` against the service log
+
+| Model | Stored tickets (have `ticket_id`) | Found in log | Same category in log | Failed requests (client) | Failed `/tickets` lines in log before the first load run |
+|---|---|---|---|---|---|
+| deepseek-r1_1_5b | 131 | 131 | 131 | 19 | 19 |
+| gemma3_4b | 150 | 150 | 150 | 0 | 0 |
+| llama3_1_8b | 150 | 150 | 150 | 0 | 0 |
+| qwen3_4b | 150 | 150 | 150 | 0 | 0 |
+
+### Load and stress runs: request-level matching of `POST /tickets`
+
+JMeter sends narratives in file order from line 1, so the k-th ticket of a run is line k of `jmeter/narratives.txt`. Log lines are ordered by server start time and compared by narrative length.
+
+| Model | Run | Sent (jtl) | Log lines | Same lengths (multiset) | Same length in send order | Status agrees (201↔201, error↔error) | Sent but never logged |
+|---|---|---|---|---|---|---|---|
+| deepseek-r1_1_5b | 50-r1 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| deepseek-r1_1_5b | 50-r2 | 16 | 16 | yes | 16/16 | 10/10 | 0 |
+| deepseek-r1_1_5b | 50-r3 | 16 | 16 | yes | 16/16 | 9/9 | 0 |
+| deepseek-r1_1_5b | 100-r1 | 33 | 33 | yes | 33/33 | 18/18 | 0 |
+| deepseek-r1_1_5b | 100-r2 | 33 | 33 | yes | 33/33 | 20/20 | 0 |
+| deepseek-r1_1_5b | 100-r3 | 33 | 33 | yes | 31/33 | 19/19 | 0 |
+| gemma3_4b | 50-r1 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| gemma3_4b | 50-r2 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| gemma3_4b | 50-r3 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| gemma3_4b | 100-r1 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| gemma3_4b | 100-r2 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| gemma3_4b | 100-r3 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| llama3_1_8b | 50-r1 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| llama3_1_8b | 50-r2 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| llama3_1_8b | 50-r3 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| llama3_1_8b | 100-r1 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| llama3_1_8b | 100-r2 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| llama3_1_8b | 100-r3 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| llama3_1_8b | stress | 1624 | 1257 | yes | 1244/1257 | 1087/1141 | 367 |
+| qwen3_4b | 50-r1 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| qwen3_4b | 50-r2 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| qwen3_4b | 50-r3 | 16 | 16 | yes | 16/16 | 16/16 | 0 |
+| qwen3_4b | 100-r1 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| qwen3_4b | 100-r2 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+| qwen3_4b | 100-r3 | 33 | 33 | yes | 33/33 | 33/33 | 0 |
+
+Sent but never logged: the request was still waiting in the connection queue when JMeter closed it at the end of the run, so the app never received it.
+Status disagreements in the stress run: JMeter's 600 s read timeout fired first (client error) while the service still completed the ticket (logged 201), because time spent queued before the app accepted the connection counts towards JMeter's timeout but not the app's.
+Send-order mismatches of a few tickets: when many requests are waiting, the app's 16 threads can pick them up slightly out of arrival order; the length multiset still matches.
