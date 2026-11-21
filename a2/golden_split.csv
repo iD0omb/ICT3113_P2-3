@@ -1,0 +1,151 @@
+position,ticket_number,label,set
+1,3021,Credit reporting,tuning
+2,3024,Consumer loan,test
+3,3032,Credit reporting,tuning
+4,3037,Mortgage,test
+5,3039,Debt collection,tuning
+6,3049,Money transfer or service,test
+7,3069,Credit card,tuning
+8,3134,Bank account or service,test
+9,3145,Bank account or service,tuning
+10,3147,Credit card,test
+11,3150,Credit reporting,tuning
+12,3155,Credit reporting,test
+13,3156,Bank account or service,tuning
+14,3157,Money transfer or service,test
+15,3159,Bank account or service,tuning
+16,3167,Mortgage,test
+17,3171,Money transfer or service,tuning
+18,3172,Bank account or service,test
+19,3173,Credit reporting,tuning
+20,3183,Consumer loan,test
+21,3188,Credit card,tuning
+22,3189,Mortgage,test
+23,3207,Mortgage,tuning
+24,3210,Credit reporting,test
+25,3211,Money transfer or service,tuning
+26,3213,Mortgage,test
+27,3214,Bank account or service,tuning
+28,3222,Credit reporting,test
+29,3224,Credit reporting,tuning
+30,3225,Mortgage,test
+31,3229,Money transfer or service,tuning
+32,3232,Credit reporting,test
+33,3234,Money transfer or service,tuning
+34,3248,Credit card,test
+35,3251,Consumer loan,tuning
+36,3260,Money transfer or service,test
+37,3262,Credit card,tuning
+38,3263,Money transfer or service,test
+39,3264,Mortgage,tuning
+40,3273,Debt collection,test
+41,3278,Money transfer or service,tuning
+42,3279,Credit reporting,test
+43,3288,Credit reporting,tuning
+44,3289,Debt collection,test
+45,3291,Debt collection,tuning
+46,3294,Money transfer or service,test
+47,3298,Bank account or service,tuning
+48,3302,Mortgage,test
+49,3304,Debt collection,tuning
+50,3310,Credit card,test
+51,3319,Credit card,tuning
+52,3323,Bank account or service,test
+53,3328,Credit reporting,tuning
+54,3346,Credit card,test
+55,3360,Money transfer or service,tuning
+56,3366,Consumer loan,test
+57,3371,Consumer loan,tuning
+58,3374,Mortgage,test
+59,3380,Debt collection,tuning
+60,3384,Debt collection,test
+61,3394,Consumer loan,tuning
+62,3396,Bank account or service,test
+63,3408,Mortgage,tuning
+64,3409,Mortgage,test
+65,3429,Consumer loan,tuning
+66,3430,Money transfer or service,test
+67,3434,Debt collection,tuning
+68,3438,Bank account or service,test
+69,3442,Credit reporting,tuning
+70,3443,Mortgage,test
+71,3444,Mortgage,tuning
+72,3446,Bank account or service,test
+73,3455,Consumer loan,tuning
+74,3463,Debt collection,test
+75,3468,Credit card,tuning
+76,3472,Bank account or service,test
+77,3475,Bank account or service,tuning
+78,3476,Money transfer or service,test
+79,3484,Money transfer or service,tuning
+80,3510,Debt collection,test
+81,3513,Credit reporting,tuning
+82,3521,Consumer loan,test
+83,3525,Mortgage,tuning
+84,3530,Debt collection,test
+85,3540,Credit reporting,tuning
+86,3546,Consumer loan,test
+87,3550,Money transfer or service,tuning
+88,3559,Debt collection,test
+89,3568,Bank account or service,tuning
+90,3574,Bank account or service,test
+91,3584,Mortgage,tuning
+92,3587,Credit reporting,test
+93,3595,Debt collection,tuning
+94,3617,Consumer loan,test
+95,3619,Credit reporting,tuning
+96,3621,Credit reporting,test
+97,3622,Credit reporting,tuning
+98,3627,Bank account or service,test
+99,3639,Mortgage,tuning
+100,3647,Debt collection,test
+101,3651,Credit reporting,tuning
+102,3654,Credit reporting,test
+103,3661,Consumer loan,tuning
+104,3663,Credit reporting,test
+105,3665,Money transfer or service,tuning
+106,3666,Debt collection,test
+107,3680,Credit card,tuning
+108,3687,Debt collection,test
+109,3694,Debt collection,tuning
+110,3713,Bank account or service,test
+111,3715,Mortgage,tuning
+112,3723,Consumer loan,test
+113,3734,Credit card,tuning
+114,3739,Consumer loan,test
+115,3752,Credit reporting,tuning
+116,3765,Mortgage,test
+117,3767,Credit card,tuning
+118,3773,Consumer loan,test
+119,3787,Bank account or service,tuning
+120,3796,Money transfer or service,test
+121,3801,Mortgage,tuning
+122,3811,Consumer loan,test
+123,3816,Bank account or service,tuning
+124,3819,Debt collection,test
+125,3822,Credit reporting,tuning
+126,3826,Money transfer or service,test
+127,3828,Credit reporting,tuning
+128,3831,Consumer loan,test
+129,3837,Debt collection,tuning
+130,3844,Mortgage,test
+131,3856,Debt collection,tuning
+132,3870,Credit card,test
+133,3878,Bank account or service,tuning
+134,3883,Credit reporting,test
+135,3900,Money transfer or service,tuning
+136,3909,Credit reporting,test
+137,3917,Money transfer or service,tuning
+138,3920,Credit card,test
+139,3923,Mortgage,tuning
+140,3924,Credit reporting,test
+141,3932,Consumer loan,tuning
+142,3948,Debt collection,test
+143,3951,Credit card,tuning
+144,3955,Bank account or service,test
+145,3957,Credit reporting,tuning
+146,3959,Credit card,test
+147,3962,Money transfer or service,tuning
+148,3990,Consumer loan,test
+149,3991,Credit card,tuning
+150,3998,Bank account or service,test
