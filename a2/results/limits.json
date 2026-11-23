@@ -1,0 +1,337 @@
+{
+  "top_model": "llama3_1_8b",
+  "limits_pct": {
+    "overall": 66.0,
+    "Bank account or service": 51.66666666666667,
+    "Consumer loan": 51.66666666666667,
+    "Credit card": 42.142857142857146,
+    "Credit reporting": 85.0,
+    "Debt collection": 60.0,
+    "Money transfer or service": 51.66666666666667,
+    "Mortgage": 75.9090909090909
+  },
+  "test_counts": {
+    "Bank account or service": 12,
+    "Consumer loan": 12,
+    "Credit card": 7,
+    "Credit reporting": 12,
+    "Debt collection": 12,
+    "Money transfer or service": 9,
+    "Mortgage": 11
+  },
+  "scores": {
+    "llama3_1_8b": {
+      "test": {
+        "overall": [
+          57,
+          75
+        ],
+        "Bank account or service": [
+          8,
+          12
+        ],
+        "Consumer loan": [
+          8,
+          12
+        ],
+        "Credit card": [
+          4,
+          7
+        ],
+        "Credit reporting": [
+          12,
+          12
+        ],
+        "Debt collection": [
+          9,
+          12
+        ],
+        "Money transfer or service": [
+          6,
+          9
+        ],
+        "Mortgage": [
+          10,
+          11
+        ]
+      },
+      "tuning": {
+        "overall": [
+          63,
+          75
+        ],
+        "Bank account or service": [
+          10,
+          10
+        ],
+        "Consumer loan": [
+          5,
+          7
+        ],
+        "Credit card": [
+          10,
+          10
+        ],
+        "Credit reporting": [
+          17,
+          17
+        ],
+        "Debt collection": [
+          6,
+          9
+        ],
+        "Money transfer or service": [
+          7,
+          12
+        ],
+        "Mortgage": [
+          8,
+          10
+        ]
+      }
+    },
+    "gemma3_4b": {
+      "test": {
+        "overall": [
+          48,
+          75
+        ],
+        "Bank account or service": [
+          8,
+          12
+        ],
+        "Consumer loan": [
+          1,
+          12
+        ],
+        "Credit card": [
+          4,
+          7
+        ],
+        "Credit reporting": [
+          11,
+          12
+        ],
+        "Debt collection": [
+          8,
+          12
+        ],
+        "Money transfer or service": [
+          7,
+          9
+        ],
+        "Mortgage": [
+          9,
+          11
+        ]
+      },
+      "tuning": {
+        "overall": [
+          58,
+          75
+        ],
+        "Bank account or service": [
+          10,
+          10
+        ],
+        "Consumer loan": [
+          3,
+          7
+        ],
+        "Credit card": [
+          9,
+          10
+        ],
+        "Credit reporting": [
+          16,
+          17
+        ],
+        "Debt collection": [
+          6,
+          9
+        ],
+        "Money transfer or service": [
+          7,
+          12
+        ],
+        "Mortgage": [
+          7,
+          10
+        ]
+      }
+    },
+    "qwen3_4b": {
+      "test": {
+        "overall": [
+          47,
+          75
+        ],
+        "Bank account or service": [
+          8,
+          12
+        ],
+        "Consumer loan": [
+          1,
+          12
+        ],
+        "Credit card": [
+          4,
+          7
+        ],
+        "Credit reporting": [
+          11,
+          12
+        ],
+        "Debt collection": [
+          10,
+          12
+        ],
+        "Money transfer or service": [
+          4,
+          9
+        ],
+        "Mortgage": [
+          9,
+          11
+        ]
+      },
+      "tuning": {
+        "overall": [
+          55,
+          75
+        ],
+        "Bank account or service": [
+          10,
+          10
+        ],
+        "Consumer loan": [
+          2,
+          7
+        ],
+        "Credit card": [
+          6,
+          10
+        ],
+        "Credit reporting": [
+          17,
+          17
+        ],
+        "Debt collection": [
+          6,
+          9
+        ],
+        "Money transfer or service": [
+          6,
+          12
+        ],
+        "Mortgage": [
+          8,
+          10
+        ]
+      }
+    },
+    "deepseek-r1_1_5b": {
+      "test": {
+        "overall": [
+          29,
+          75
+        ],
+        "Bank account or service": [
+          7,
+          12
+        ],
+        "Consumer loan": [
+          2,
+          12
+        ],
+        "Credit card": [
+          2,
+          7
+        ],
+        "Credit reporting": [
+          3,
+          12
+        ],
+        "Debt collection": [
+          8,
+          12
+        ],
+        "Money transfer or service": [
+          4,
+          9
+        ],
+        "Mortgage": [
+          3,
+          11
+        ]
+      },
+      "tuning": {
+        "overall": [
+          27,
+          75
+        ],
+        "Bank account or service": [
+          7,
+          10
+        ],
+        "Consumer loan": [
+          1,
+          7
+        ],
+        "Credit card": [
+          5,
+          10
+        ],
+        "Credit reporting": [
+          0,
+          17
+        ],
+        "Debt collection": [
+          5,
+          9
+        ],
+        "Money transfer or service": [
+          5,
+          12
+        ],
+        "Mortgage": [
+          4,
+          10
+        ]
+      }
+    }
+  },
+  "verdicts": {
+    "llama3_1_8b": {
+      "overall_pass": true,
+      "failed_categories": [],
+      "pass": true
+    },
+    "gemma3_4b": {
+      "overall_pass": false,
+      "failed_categories": [
+        "Consumer loan"
+      ],
+      "pass": false
+    },
+    "qwen3_4b": {
+      "overall_pass": false,
+      "failed_categories": [
+        "Consumer loan",
+        "Money transfer or service"
+      ],
+      "pass": false
+    },
+    "deepseek-r1_1_5b": {
+      "overall_pass": false,
+      "failed_categories": [
+        "Consumer loan",
+        "Credit card",
+        "Credit reporting",
+        "Money transfer or service",
+        "Mortgage"
+      ],
+      "pass": false
+    }
+  }
+}
