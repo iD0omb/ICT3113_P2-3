@@ -21,7 +21,8 @@ services:
       retries: 30
     restart: unless-stopped
 
-  # One-shot job: pulls every candidate model, then exits.
+  # One-shot job: pulls any candidate model that is missing, then exits. Models already present are
+  # never re-pulled, because a re-pull can replace the pinned digest when a tag is republished.
   model-pull:
     image: ollama/ollama:${OLLAMA_VERSION:-latest}
     depends_on:
@@ -35,8 +36,12 @@ services:
       - |
         set -e
         for m in $$CANDIDATE_MODELS; do
-          echo "Pulling $$m"
-          ollama pull "$$m"
+          if ollama show "$$m" >/dev/null 2>&1; then
+            echo "Present, not re-pulled: $$m"
+          else
+            echo "Pulling $$m"
+            ollama pull "$$m"
+          fi
         done
         ollama list
     restart: "no"
