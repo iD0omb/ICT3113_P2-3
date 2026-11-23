@@ -75,6 +75,9 @@ services:
     environment:
       OLLAMA_URL: http://ollama:11434
       MODEL: ${MODEL}
+      CASCADE_SMALL: ${CASCADE_SMALL:-}
+      CASCADE_ESCALATE: ${CASCADE_ESCALATE:-}
+      CASCADE_SETTING: ${CASCADE_SETTING:-}
       SEED: ${SEED}
       TEMPERATURE: ${TEMPERATURE:-0}
       THINK: ${THINK:-false}

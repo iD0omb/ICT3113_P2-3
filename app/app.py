@@ -42,6 +42,11 @@ RESPONSE_SCHEMA = {
 
 OLLAMA_URL = os.environ.get("OLLAMA_URL", "http://localhost:11434").rstrip("/")
 MODEL = os.environ["MODEL"]
+# Cascade (A2): when CASCADE_SMALL is set, it classifies every ticket first; the ticket escalates to MODEL
+# when the small model's predicted category is in CASCADE_ESCALATE (comma-separated) or its call fails.
+CASCADE_SMALL = os.environ.get("CASCADE_SMALL", "").strip()
+CASCADE_ESCALATE = frozenset(c.strip() for c in os.environ.get("CASCADE_ESCALATE", "").split(",") if c.strip())
+CASCADE_SETTING = os.environ.get("CASCADE_SETTING", "").strip()
 SEED = int(os.environ.get("SEED", "42"))
 TEMPERATURE = float(os.environ.get("TEMPERATURE", "0"))
 THINK = os.environ.get("THINK", "false").strip().lower()
@@ -49,6 +54,14 @@ OLLAMA_TIMEOUT = float(os.environ.get("OLLAMA_TIMEOUT", "600"))
 DATABASE_URL = os.environ["DATABASE_URL"]
 DB_POOL_SIZE = int(os.environ.get("DB_POOL_SIZE", "16"))
 LOG_PATH = os.environ.get("LOG_PATH", "requests.log")
+
+if CASCADE_SMALL:
+    unknown = sorted(CASCADE_ESCALATE - set(CATEGORIES))
+    if unknown or not CASCADE_ESCALATE:
+        raise SystemExit(f"CASCADE_ESCALATE must list categories from {CATEGORIES}; got unknown {unknown}")
+    if CASCADE_SMALL == MODEL:
+        raise SystemExit("CASCADE_SMALL must differ from MODEL (the large model)")
+CONFIGURATION = f"cascade-{CASCADE_SETTING or 'unnamed'}" if CASCADE_SMALL else "single"
 
 
 def _setup_logger():
@@ -114,9 +127,9 @@ class ClassificationError(Exception):
     pass
 
 
-def classify(narrative):
+def classify(model, narrative):
     payload = {
-        "model": MODEL,
+        "model": model,
         "messages": [
             {"role": "system", "content": SYSTEM_PROMPT},
             {"role": "user", "content": narrative},
@@ -125,14 +138,14 @@ def classify(narrative):
         "stream": False,
         "options": {"temperature": TEMPERATURE, "seed": SEED},
     }
-    if THINK in ("true", "false") and MODEL not in _no_think_support:
+    if THINK in ("true", "false") and model not in _no_think_support:
         payload["think"] = THINK == "true"
 
     resp = _session.post(f"{OLLAMA_URL}/api/chat", json=payload, timeout=OLLAMA_TIMEOUT)
     if resp.status_code == 400 and "think" in resp.text.lower() and "think" in payload:
         # Model has no thinking mode; remember that and retry without the flag.
         with _no_think_lock:
-            _no_think_support.add(MODEL)
+            _no_think_support.add(model)
         payload.pop("think")
         resp = _session.post(f"{OLLAMA_URL}/api/chat", json=payload, timeout=OLLAMA_TIMEOUT)
     if resp.status_code != 200:
@@ -155,6 +168,38 @@ def classify(narrative):
         )
     }
     return category, timings
+
+
+def prefixed(prefix, timings):
+    return {f"{prefix}_{k}": v for k, v in timings.items()}
+
+
+def triage(narrative):
+    """Final category and the model that produced it. Adds per-model details to the request log."""
+    if not CASCADE_SMALL:
+        t = time.perf_counter()
+        category, timings = classify(MODEL, narrative)
+        g.log_fields.update(classify_ms=ms_since(t), **timings)
+        return category, MODEL
+
+    t = time.perf_counter()
+    try:
+        small_category, timings = classify(CASCADE_SMALL, narrative)
+        g.log_fields.update(small_category=small_category, small_ms=ms_since(t), **prefixed("small", timings))
+        escalated = small_category in CASCADE_ESCALATE
+        reason = f"predicted {small_category}" if escalated else ""
+    except (ClassificationError, requests.RequestException) as exc:
+        g.log_fields.update(small_error=str(exc), small_ms=ms_since(t))
+        escalated, reason = True, "small model failed"
+    g.log_fields.update(escalated=escalated, escalation_reason=reason)
+    if not escalated:
+        g.log_fields["classify_ms"] = g.log_fields["small_ms"]
+        return small_category, CASCADE_SMALL
+
+    t_large = time.perf_counter()
+    category, timings = classify(MODEL, narrative)
+    g.log_fields.update(large_ms=ms_since(t_large), classify_ms=ms_since(t), **prefixed("large", timings))
+    return category, MODEL
 
 
 # --- HTTP API --------------------------------------------------------------
@@ -197,27 +242,28 @@ def create_ticket():
         g.log_fields["error"] = "missing or empty narrative"
         return jsonify(error="request body must contain a non-empty 'narrative'"), 400
     narrative = narrative.strip()
-    g.log_fields.update(model=MODEL, prompt_version=PROMPT_VERSION, chars=len(narrative))
+    g.log_fields.update(configuration=CONFIGURATION, prompt_version=PROMPT_VERSION, chars=len(narrative))
 
     t = time.perf_counter()
     try:
-        category, timings = classify(narrative)
+        category, final_model = triage(narrative)
     except (ClassificationError, requests.RequestException) as exc:
-        g.log_fields.update(error=str(exc), classify_ms=ms_since(t))
+        g.log_fields.update(error=str(exc))
+        g.log_fields.setdefault("classify_ms", ms_since(t))
         return jsonify(error="classification failed", detail=str(exc)), 502
-    g.log_fields.update(category=category, classify_ms=ms_since(t), **timings)
+    g.log_fields.update(category=category, model=final_model)
 
     t = time.perf_counter()
     with pool.connection() as conn:
         ticket_id = conn.execute(
             "INSERT INTO tickets (narrative, category, model, prompt_version) "
             "VALUES (%s, %s, %s, %s) RETURNING id",
-            (narrative, category, MODEL, PROMPT_VERSION),
+            (narrative, category, final_model, PROMPT_VERSION),
         ).fetchone()["id"]
     g.log_fields.update(ticket_id=ticket_id, db_ms=ms_since(t))
 
-    return jsonify(id=ticket_id, category=category, model=MODEL,
-                   latency_ms=ms_since(g.started)), 201
+    # The caller is not told which model answered (A2 brief); the log records it.
+    return jsonify(id=ticket_id, category=category, latency_ms=ms_since(g.started)), 201
 
 
 @app.get("/search")
@@ -269,5 +315,7 @@ def stats():
 
 @app.get("/health")
 def health():
-    return jsonify(status="ok", model=MODEL, prompt_version=PROMPT_VERSION, seed=SEED,
-                   temperature=TEMPERATURE, think=THINK)
+    return jsonify(status="ok", configuration=CONFIGURATION, model=MODEL,
+                   cascade_small=CASCADE_SMALL or None,
+                   cascade_escalate=sorted(CASCADE_ESCALATE) if CASCADE_SMALL else None,
+                   prompt_version=PROMPT_VERSION, seed=SEED, temperature=TEMPERATURE, think=THINK)
