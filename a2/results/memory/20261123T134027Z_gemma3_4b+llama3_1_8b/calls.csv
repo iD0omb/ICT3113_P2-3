@@ -1,0 +1,7 @@
+call,round,model,ticket_row,http_status,category,wall_ms,load_ms,total_ms,prompt_eval_count,eval_count,first_call_to_model,loaded_after,error
+1,1,gemma3:4b,3000,200,Money transfer or service,7846.9,5196.2,8626.6,506,10,1,gemma3:4b,
+2,1,llama3.1:8b,3000,200,Money transfer or service,16780.1,11662.6,18437.1,502,10,1,gemma3:4b llama3.1:8b,
+3,2,gemma3:4b,3001,200,Credit card,2052.0,2.5,2251.8,298,8,0,gemma3:4b llama3.1:8b,
+4,2,llama3.1:8b,3001,200,Credit card,1816.9,2.5,1984.4,286,8,0,gemma3:4b llama3.1:8b,
+5,3,gemma3:4b,3002,200,Credit card,3251.8,4.3,3572.0,524,8,0,gemma3:4b llama3.1:8b,
+6,3,llama3.1:8b,3002,200,Credit reporting,4188.1,2.0,4601.8,516,8,0,gemma3:4b llama3.1:8b,

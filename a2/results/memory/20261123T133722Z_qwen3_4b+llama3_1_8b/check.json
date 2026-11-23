@@ -1,0 +1,100 @@
+{
+  "verdict": "PASS",
+  "problems": [],
+  "models": [
+    "qwen3:4b",
+    "llama3.1:8b"
+  ],
+  "started_utc": "2026-11-23T13:37:22.823746+00:00",
+  "finished_utc": "2026-11-23T13:37:59.118602+00:00",
+  "ollama_url": "http://localhost:11434",
+  "ollama_version": "0.35.1",
+  "settings": {
+    "temperature": 0,
+    "seed": 89,
+    "think": false,
+    "reload_threshold_s": 0.5
+  },
+  "digests": {
+    "qwen3:4b": {
+      "installed": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "lock": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "match": true
+    },
+    "llama3.1:8b": {
+      "installed": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "lock": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "match": true
+    }
+  },
+  "ticket_rows": [
+    "3000",
+    "3001",
+    "3002"
+  ],
+  "container_nothing_loaded": {
+    "ollama_env": {
+      "OLLAMA_MAX_LOADED_MODELS": "2",
+      "OLLAMA_KEEP_ALIVE": "-1",
+      "CUDA_VISIBLE_DEVICES": "",
+      "OLLAMA_NUM_PARALLEL": "1",
+      "OLLAMA_HOST": "0.0.0.0:11434"
+    },
+    "MemTotal_bytes": 16300081152,
+    "MemAvailable_bytes": 14863106048,
+    "cpus": 24
+  },
+  "container_after": {
+    "ollama_env": {
+      "OLLAMA_MAX_LOADED_MODELS": "2",
+      "OLLAMA_KEEP_ALIVE": "-1",
+      "CUDA_VISIBLE_DEVICES": "",
+      "OLLAMA_NUM_PARALLEL": "1",
+      "OLLAMA_HOST": "0.0.0.0:11434"
+    },
+    "MemTotal_bytes": 16300081152,
+    "MemAvailable_bytes": 5934481408,
+    "cpus": 24
+  },
+  "ps_before_unload": [],
+  "ps_after": [
+    {
+      "name": "llama3.1:8b",
+      "model": "llama3.1:8b",
+      "size": 5576117451,
+      "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "llama",
+        "families": [
+          "llama"
+        ],
+        "parameter_size": "8.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2319-03-05T13:25:07.189606758Z",
+      "size_vram": 0,
+      "context_length": 4096
+    },
+    {
+      "name": "qwen3:4b",
+      "model": "qwen3:4b",
+      "size": 3184001022,
+      "digest": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7",
+      "details": {
+        "parent_model": "",
+        "format": "gguf",
+        "family": "qwen3",
+        "families": [
+          "qwen3"
+        ],
+        "parameter_size": "4.0B",
+        "quantization_level": "Q4_K_M"
+      },
+      "expires_at": "2319-03-05T13:25:02.843986059Z",
+      "size_vram": 0,
+      "context_length": 4096
+    }
+  ]
+}

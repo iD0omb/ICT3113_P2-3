@@ -1,0 +1,7 @@
+call,round,model,ticket_row,http_status,category,wall_ms,load_ms,total_ms,prompt_eval_count,eval_count,first_call_to_model,loaded_after,error
+1,1,qwen3:4b,3000,200,Money transfer or service,9256.0,6009.1,10001.4,502,15,1,qwen3:4b,
+2,1,llama3.1:8b,3000,200,Money transfer or service,15187.8,9840.4,16448.5,502,10,1,llama3.1:8b qwen3:4b,
+3,2,qwen3:4b,3001,200,Credit card,1305.2,2.1,1397.6,293,11,0,llama3.1:8b qwen3:4b,
+4,2,llama3.1:8b,3001,200,Credit card,1898.4,2.1,2039.4,286,8,0,llama3.1:8b qwen3:4b,
+5,3,qwen3:4b,3002,200,Credit card,2763.2,2.2,2987.5,518,11,0,llama3.1:8b qwen3:4b,
+6,3,llama3.1:8b,3002,200,Credit reporting,4382.4,2.1,4742.7,516,8,0,llama3.1:8b qwen3:4b,
