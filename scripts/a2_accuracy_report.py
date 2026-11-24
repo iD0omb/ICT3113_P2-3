@@ -12,6 +12,7 @@ For each configuration: overall accuracy (count, %) against the overall limit; p
 %) against each category's limit; a confusion matrix. For each cascade, from its service log: escalation
 fraction, accuracy of escalated and accepted tickets, wrong answers accepted, and a reconciliation of every
 accuracy row with its log line (same ticket ID, same category). Failed requests count as wrong.
+Reproducibility: each cascade's live answers compared, ticket by ticket, with the A1 single-model answers.
 
 Writes a2/results/accuracy_report.md. Reads files only.
 """
@@ -29,6 +30,7 @@ SHORT = {"Bank account or service": "Bank", "Consumer loan": "Loan", "Credit car
          "Credit reporting": "CredRep", "Debt collection": "Debt", "Money transfer or service": "Money",
          "Mortgage": "Mort"}
 SMALL = 10
+SMALL_MODEL = "qwen3:4b"  # the cascade's first model (a2/escalation_rule.md); the log records only its answer
 
 
 def read_csv(path):
@@ -119,6 +121,9 @@ def main():
             c = r["cascade"]
             lines.append(f"| {r['name']} | {c['esc']}/{c['n']} ({100 * c['esc'] / c['n']:.0f}%) | {cell(*c['esc_acc'])} | "
                          f"{cell(*c['acc_acc'])} | {c['wrong_accepted']} | {c['small_failed']} | {c['recon']} |")
+        singles = {r["name"].removesuffix(" alone"): {x["ticket_number"]: x for x in r["rows"]}
+                   for r in results if r["name"].endswith(" alone")}
+        lines += reproducibility(cascades, singles)
 
     lines += ["", "## Confusion matrices (rows: golden label, columns: answer)", ""]
     for r in results:
@@ -143,12 +148,13 @@ def cascade_details(name, rows, log_path, problems):
     entries = [json.loads(l) for l in log_path.read_text(encoding="utf-8").splitlines() if l.strip()]
     tickets = [e for e in entries if e.get("path") == "/tickets"]
     by_id = {e["ticket_id"]: e for e in tickets if e.get("ticket_id") is not None}
-    esc_rows, acc_rows, unmatched, mismatched = [], [], [], []
+    esc_rows, acc_rows, unmatched, mismatched, by_ticket = [], [], [], [], {}
     for r in rows:
         e = by_id.get(int(r["ticket_id"])) if r["ticket_id"] else None
         if e is None:
             unmatched.append(r["ticket_number"])
             continue
+        by_ticket[r["ticket_number"]] = e
         if e.get("category") != r["predicted"]:
             mismatched.append(r["ticket_number"])
         (esc_rows if e.get("escalated") else acc_rows).append(r)
@@ -170,7 +176,54 @@ def cascade_details(name, rows, log_path, problems):
         "wrong_accepted": sum(not int(r["correct"]) for r in acc_rows),
         "small_failed": sum(e.get("escalation_reason") == "small model failed" for e in tickets),
         "recon": "all match" if not (unmatched or mismatched) and len(tickets) == len(rows) else "MISMATCH",
+        "by_ticket": by_ticket,
     }
+
+
+def reproducibility(cascades, singles):
+    """Compare each cascade's live answers with the Assignment 1 single-model answers for the same tickets.
+
+    The small model's answer (small_category in the log) is compared with SMALL_MODEL's A1 answer; an escalated
+    ticket's final answer is compared with the escalating model's A1 answer. Temperature 0 and a fixed seed mean
+    they should match; any difference is listed, not explained."""
+    lines = ["", "## Reproducibility: live cascade answers vs the Assignment 1 single-model answers", "",
+             f"Temperature 0 and seed 89, so each live answer should equal that model's Assignment 1 answer for the same "
+             f"ticket. Small model: {SMALL_MODEL}. Escalated tickets are compared with the model that answered them "
+             "(`model` in the log).", "",
+             "| Configuration | Small model same as A1 | Escalated answers same as A1 | Differences |",
+             "|---|---|---|---|"]
+    details = []
+    for r in cascades:
+        small_a1 = singles.get(SMALL_MODEL)
+        if small_a1 is None:
+            lines.append(f"| {r['name']} | — | — | {SMALL_MODEL} A1 results not available |")
+            continue
+        small_same = esc_same = esc_n = 0
+        diffs = []
+        for t, e in sorted(r["cascade"]["by_ticket"].items(), key=lambda kv: int(kv[0])):
+            a1 = small_a1[t]["predicted"] or "(failed)"
+            live = e.get("small_category") or "(failed)"
+            if live == a1:
+                small_same += 1
+            else:
+                diffs.append((t, f"{SMALL_MODEL}: A1 {a1}, live {live}"))
+            if e.get("escalated"):
+                large_a1 = singles.get(e.get("model"))
+                if large_a1 is None:
+                    continue
+                esc_n += 1
+                a1 = large_a1[t]["predicted"] or "(failed)"
+                if e.get("category") == a1:
+                    esc_same += 1
+                else:
+                    diffs.append((t, f"{e.get('model')}: A1 {a1}, live {e.get('category')}"))
+        n = len(r["cascade"]["by_ticket"])
+        lines.append(f"| {r['name']} | {small_same}/{n} | {esc_same}/{esc_n} | {len(diffs) or 'none'} |")
+        details += [f"- {r['name']}, #{t}: {d}; golden {small_a1[t]['golden']}; final answer {e_final}"
+                    for t, d in diffs for e_final in [r["cascade"]["by_ticket"][t].get("category")]]
+    if details:
+        lines += ["", "Tickets whose live answer differs from Assignment 1:", ""] + details
+    return lines
 
 
 if __name__ == "__main__":

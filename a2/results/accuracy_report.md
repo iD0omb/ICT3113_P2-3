@@ -25,6 +25,20 @@ Too small for the per-category limit to be a fair test on its own: Credit card (
 | Cascade A | 33/75 (44%) | 69.7% (23/33) | 78.6% (33/42) | 9 | 0 | all match |
 | Cascade B | 44/75 (59%) | 75.0% (33/44) | 83.9% (26/31) | 5 | 0 | all match |
 
+## Reproducibility: live cascade answers vs the Assignment 1 single-model answers
+
+Temperature 0 and seed 89, so each live answer should equal that model's Assignment 1 answer for the same ticket. Small model: qwen3:4b. Escalated tickets are compared with the model that answered them (`model` in the log).
+
+| Configuration | Small model same as A1 | Escalated answers same as A1 | Differences |
+|---|---|---|---|
+| Cascade A | 74/75 | 33/33 | 1 |
+| Cascade B | 74/75 | 44/44 | 1 |
+
+Tickets whose live answer differs from Assignment 1:
+
+- Cascade A, #3430: qwen3:4b: A1 Bank account or service, live Debt collection; golden Money transfer or service; final answer Money transfer or service
+- Cascade B, #3430: qwen3:4b: A1 Bank account or service, live Debt collection; golden Money transfer or service; final answer Money transfer or service
+
 ## Confusion matrices (rows: golden label, columns: answer)
 
 ### llama3.1:8b alone
