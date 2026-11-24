@@ -1,0 +1,33 @@
+{
+    "run_id":  "speed-cascade-A-r3",
+    "configuration":  "cascade-A",
+    "run":  3,
+    "sut":  "http://169.254.140.57:5000",
+    "S_s":  2.47,
+    "rate_per_hour":  729,
+    "duration_min":  5,
+    "timeout_s":  300,
+    "pause_min":  6,
+    "seed":  3116,
+    "narratives":  "a2/speed_narratives.txt",
+    "health":  {
+                   "cascade_escalate":  [
+                                            "Credit card",
+                                            "Debt collection"
+                                        ],
+                   "cascade_small":  "qwen3:4b",
+                   "configuration":  "cascade-A",
+                   "model":  "llama3.1:8b",
+                   "prompt_version":  "v1",
+                   "seed":  89,
+                   "status":  "ok",
+                   "temperature":  0.0,
+                   "think":  "false"
+               },
+    "stats_before":  2365,
+    "started_utc":  "2026-11-24T10:00:57.9148778Z",
+    "jmeter_exit":  0,
+    "ended_utc":  "2026-11-24T10:12:59.2069130Z",
+    "stats_after":  2425,
+    "stats_delta":  60
+}

@@ -1,0 +1,30 @@
+{
+    "run_id":  "speed-llama-r2",
+    "configuration":  "llama",
+    "run":  2,
+    "sut":  "http://169.254.140.57:5000",
+    "S_s":  2.47,
+    "rate_per_hour":  729,
+    "duration_min":  5,
+    "timeout_s":  300,
+    "pause_min":  6,
+    "seed":  3115,
+    "narratives":  "a2/speed_narratives.txt",
+    "health":  {
+                   "cascade_escalate":  null,
+                   "cascade_small":  null,
+                   "configuration":  "single",
+                   "model":  "llama3.1:8b",
+                   "prompt_version":  "v1",
+                   "seed":  89,
+                   "status":  "ok",
+                   "temperature":  0.0,
+                   "think":  "false"
+               },
+    "stats_before":  2113,
+    "started_utc":  "2026-11-24T08:47:06.5308178Z",
+    "jmeter_exit":  0,
+    "ended_utc":  "2026-11-24T08:59:07.7959099Z",
+    "stats_after":  2173,
+    "stats_delta":  60
+}
