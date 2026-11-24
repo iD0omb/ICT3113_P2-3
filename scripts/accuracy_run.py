@@ -182,6 +182,9 @@ def main():
     parser.add_argument("--warmup", action="store_true", help="send one non-golden ticket to load the model")
     parser.add_argument("--allow-unknown", action="store_true",
                         help="score labels outside the 7 categories as incorrect instead of aborting")
+    parser.add_argument("--split", choices=["test", "tuning"],
+                        help="A2: send only this half of the golden set (from --split-file); default: all tickets")
+    parser.add_argument("--split-file", type=Path, default=REPO / "a2" / "golden_split.csv")
     args = parser.parse_args()
 
     golden = read_golden(args.golden)
@@ -206,6 +209,17 @@ def main():
         sys.exit("--out is required for an accuracy run")
     if args.out.exists():
         sys.exit(f"{args.out} already exists; refusing to overwrite a recorded run")
+    if args.split:
+        with open(args.split_file, encoding="utf-8", newline="") as f:
+            split = {r["ticket_number"]: r for r in csv.DictReader(f)}
+        if set(split) != {g["ticket_number"] for g in golden}:
+            sys.exit(f"{args.split_file} does not cover exactly the golden-set tickets")
+        mismatched = [g["ticket_number"] for g in golden if split[g["ticket_number"]]["label"] != canonical(g["label"])]
+        if mismatched:
+            sys.exit(f"{args.split_file} labels differ from the golden set for tickets {mismatched}")
+        golden = sorted((g for g in golden if split[g["ticket_number"]]["set"] == args.split),
+                        key=lambda g: int(g["ticket_number"]))
+        print(f"{args.split} set: {len(golden)} tickets (from {args.split_file.name})")
     args.out.parent.mkdir(parents=True, exist_ok=True)
     tickets = golden[: args.limit] if args.limit else golden
 
