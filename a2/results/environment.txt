@@ -1,0 +1,30 @@
+A2 test environment, recorded before the first Assignment 2 benchmark run (2026-11-23).
+System under test: the Assignment 1 laptop (AMD Ryzen AI 9 HX 370, 32 GB RAM, Windows), unchanged.
+
+Software
+  Ollama            0.35.1 (memory check, /api/version)
+  Docker            29.8.0 (reported by the team on the laptop)
+  Repository        commit da5d2e9 on branch assignment-2 (laptop, at the memory check)
+
+Docker / Ollama container (memory check, a2/results/memory/*/check.json)
+  CPUs visible      24
+  Memory (VM)       16.3 GB total (16,300,081,152 bytes)
+  GPU               none (CUDA_VISIBLE_DEVICES="", no GPU passed to the container)
+
+Ollama settings, held constant for every A2 configuration
+  OLLAMA_NUM_PARALLEL        1
+  OLLAMA_MAX_LOADED_MODELS   2   (Assignment 1: 1; raised so the cascade's two models stay loaded together)
+  OLLAMA_KEEP_ALIVE          -1
+  Thread count, context length: Ollama defaults, not set
+
+Inference settings (unchanged from Assignment 1)
+  TEMPERATURE 0, SEED 89, THINK false, prompt version v1
+
+Model digests (all match scripts/models.lock.json)
+  deepseek-r1:1.5b  e0979632db5a88d1a53884cb2a941772d10ff5d055aabaa6801c4e36f3a6c2d7  (ollama list on the laptop)
+  gemma3:4b         a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a  (memory check)
+  llama3.1:8b       46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e  (memory check)
+  qwen3:4b          359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7  (memory check)
+
+model-pull skipped all four models ("Present, not re-pulled"), so no model was re-downloaded.
+These values are re-checked before each configuration's speed runs.

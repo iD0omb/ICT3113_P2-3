@@ -1,10 +1,6 @@
 # A2 prediction record
 
-> **DRAFT for team review.** Not final until this notice is removed in a later commit; no Assignment 2
-> benchmark runs before that commit.
-
-Committed before the first Assignment 2 benchmark run, together with `a2/escalation_rule.md` and
-`a2/speed_workload.csv`. Not revised afterwards.
+Committed before the first Assignment 2 benchmark. Not revised afterwards.
 
 ## Basis
 
@@ -16,7 +12,9 @@ Committed before the first Assignment 2 benchmark run, together with `a2/escalat
   overlap the test set.
 - **Adjustment from tuning to test:** llama3.1:8b scores 84.0% on tuning but 76.0% on test, so the test
   tickets are harder. We assume each cascade keeps its tuning-set gap to llama3.1:8b (A: −2.7 points,
-  B: 0), applied to llama's test score.
+  B: 0), applied to llama's test score. For B we then take one ticket off (56/75 rather than 57/75):
+  three of the four wrong answers B accepted on tuning were Money transfer tickets, the second-smallest
+  test category, so we expect B to fall slightly short of llama3.1:8b rather than match it exactly.
 - **Latency assumptions:** S (llama3.1:8b on a typical ticket, after warm-up) ≈ 2.3 s, close to its A1
   median of 2.26 s, giving one ticket every ≈ 4.6 s. The speed workload is slightly longer than the golden
   set (median 922 vs 798 characters), adding about 10% to service time. Queueing at this rate adds
@@ -40,7 +38,7 @@ slower than llama3.1:8b alone, because it escalates about half the tickets.
 | Escalation fraction, speed workload (from logs) | — | **30%** | **50%** |
 | Test accuracy, overall | 76.0% (57/75, measured) | **73.3% (55/75)** | **74.7% (56/75)** |
 | Passes overall limit (66.0%) | yes | **yes** | **yes** |
-| Passes every category limit | yes | **yes, with Consumer loan at 7/12 and Money transfer at 5/9, each one ticket above its limit** | **yes** |
+| Passes every category limit | yes | **yes, with Consumer loan at 7/12 and Money transfer at 5/9, each passing at minimum** | **yes** |
 | Accuracy, escalated tickets | — | **74%** | **70%** |
 | Accuracy, accepted (not escalated) tickets | — | **73%** | **79%** |
 | Speed test p50 (mean of 3 runs) | **2.9 s** | **2.4 s** (17% faster than llama) | **3.6 s** (24% slower than llama) |
@@ -55,7 +53,7 @@ cascades have a heavier tail than llama3.1:8b alone, even where the median is lo
 
 ## 3. Categories expected to lose the most accuracy when qwen3:4b's answer is accepted
 
-On the tuning set, these were the wrong answers that both settings let through:
+On the tuning set, these were the wrong answers each setting let through:
 
 1. **Money transfer or service** (the largest loss): qwen3:4b labels transfers and scams as *Bank account
    or service*, *Credit reporting* or *Credit card*. Predictions a setting does not escalate are accepted
