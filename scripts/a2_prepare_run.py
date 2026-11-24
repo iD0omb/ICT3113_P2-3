@@ -107,7 +107,20 @@ def main():
     out_dir = REPO / "a2" / "results" / "speed" / args.config / f"run{args.run}"
     if (out_dir / "results.jtl").exists():
         fail(f"{out_dir / 'results.jtl'} already exists: this run has been recorded")
-    record = {"run_id": run_id, "configuration": args.config, "run": args.run,
+    prepare(args.config, run_id, out_dir, args.service, args.ollama, args.log, run=args.run)
+    print(f"\nREADY. Wrote {out_dir.relative_to(REPO)}\\prepare.json and ollama_ps.txt")
+    print("Now, on the desktop (load generator):")
+    print(f"  .\\jmeter\\run_a2_speed.ps1 -Config {args.config} -Run {args.run} -SutHost <laptop IP>")
+    print("After the run finishes, here on the laptop:")
+    print(f"  python scripts/a2_save_log.py --run-id {run_id}-warmup --run-id {run_id} "
+          f"--out a2/results/speed/{args.config}/run{args.run}/requests.log")
+
+
+def prepare(config, run_id, out_dir, service, ollama, log, run=None):
+    """Steps 1-6 of the module docstring. Writes out_dir/prepare.json and ollama_ps.txt; returns the record.
+    Warm-ups are sent with run ID <run_id>-warmup. Exits at the first failed check."""
+    args = argparse.Namespace(config=config, service=service, ollama=ollama, log=log)
+    record = {"run_id": run_id, "configuration": config, "run": run,
               "prepared_utc": datetime.now(timezone.utc).isoformat()}
 
     print(f"Preparing {run_id}")
@@ -242,12 +255,7 @@ def main():
     ok(f"total {stats.get('total')}")
 
     (out_dir / "prepare.json").write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
-    print(f"\nREADY. Wrote {out_dir.relative_to(REPO)}\\prepare.json and ollama_ps.txt")
-    print("Now, on the desktop (load generator):")
-    print(f"  .\\jmeter\\run_a2_speed.ps1 -Config {args.config} -Run {args.run} -SutHost <laptop IP>")
-    print("After the run finishes, here on the laptop:")
-    print(f"  python scripts/a2_save_log.py --run-id {warm_id} --run-id {run_id} "
-          f"--out a2/results/speed/{args.config}/run{args.run}/requests.log")
+    return record
 
 
 if __name__ == "__main__":
