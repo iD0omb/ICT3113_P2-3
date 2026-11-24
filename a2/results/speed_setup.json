@@ -1,0 +1,41 @@
+{
+  "S_s": 2.47,
+  "rate_per_hour": 729,
+  "duration_min": 5,
+  "timeout_s": 300,
+  "pause_min": 6,
+  "tickets_per_run": 60.8,
+  "client_peak_per_hour": 25,
+  "test_rate_vs_client_peak": "above",
+  "s_tickets": [
+    {
+      "row": "3217",
+      "chars": 802,
+      "client_ms": 2242.5,
+      "ticket_id": 2045,
+      "category": "Credit reporting",
+      "service_total_ms": 2252.6,
+      "ollama_ms": 2247.6
+    },
+    {
+      "row": "3344",
+      "chars": 800,
+      "client_ms": 2519.9,
+      "ticket_id": 2046,
+      "category": "Bank account or service",
+      "service_total_ms": 2469.5,
+      "ollama_ms": 2465.4
+    },
+    {
+      "row": "3722",
+      "chars": 800,
+      "client_ms": 2472.7,
+      "ticket_id": 2047,
+      "category": "Consumer loan",
+      "service_total_ms": 2423.7,
+      "ollama_ms": 2419.6
+    }
+  ],
+  "method": "llama3.1:8b alone, after an Ollama restart and the three fixed warm-ups; three different typical-length tickets sent one at a time; S = middle client-side time",
+  "measured_utc": "2026-11-24T07:44:06.590614+00:00"
+}
