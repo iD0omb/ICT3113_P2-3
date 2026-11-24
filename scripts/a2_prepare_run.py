@@ -41,7 +41,7 @@ EXPECTED = {
     "cascade-B": {"configuration": "cascade-B", "model": LARGE, "cascade_small": SMALL,
                   "cascade_escalate": ["Credit reporting", "Debt collection"]},
 }
-INFERENCE = {"prompt_version": "v1", "seed": 89, "temperature": 0, "think": False}
+INFERENCE = {"prompt_version": "v1", "seed": 89, "temperature": 0, "think": "false"}  # app.py reports THINK as a lowercase string
 OLLAMA_ENV = {"OLLAMA_NUM_PARALLEL": "1", "OLLAMA_MAX_LOADED_MODELS": "2", "OLLAMA_KEEP_ALIVE": "-1"}
 DOCKER_VERSION = "29.8.0"                         # a2/results/environment.txt
 SERVICE_FILES = ["app", "docker-compose.yaml"]    # the code and stack definition under test
