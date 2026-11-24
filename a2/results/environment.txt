@@ -5,6 +5,10 @@ Software
   Ollama            0.35.1 (memory check, /api/version)
   Docker            29.8.0 (reported by the team on the laptop)
   Repository        commit da5d2e9 on branch assignment-2 (laptop, at the memory check)
+  Service code      app/ and docker-compose.yaml as of commit 9372324 (cascade added; the memory check ran
+                    before it). Each speed run records the commit it ran on in its prepare.json.
+                    [Line added 2026-11-24, after the accuracy runs and before any speed run: the commit
+                    above predates the cascade code. No other value in this file was changed.]
 
 Docker / Ollama container (memory check, a2/results/memory/*/check.json)
   CPUs visible      24
