@@ -1,0 +1,4 @@
+# speed-cascade-A-r2, after warm-up, 2026-11-24T09:46:39.352129+00:00
+NAME           ID              SIZE      PROCESSOR    CONTEXT    UNTIL   
+llama3.1:8b    46e0c10c039e    5.6 GB    100% CPU     4096       Forever    
+qwen3:4b       359d7dd4bcda    3.2 GB    100% CPU     4096       Forever    

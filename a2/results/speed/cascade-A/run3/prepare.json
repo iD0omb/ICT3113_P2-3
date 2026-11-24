@@ -1,0 +1,82 @@
+{
+  "run_id": "speed-cascade-A-r3",
+  "configuration": "cascade-A",
+  "run": 3,
+  "prepared_utc": "2026-11-24T09:59:52.710375+00:00",
+  "health": {
+    "cascade_escalate": [
+      "Credit card",
+      "Debt collection"
+    ],
+    "cascade_small": "qwen3:4b",
+    "configuration": "cascade-A",
+    "model": "llama3.1:8b",
+    "prompt_version": "v1",
+    "seed": 89,
+    "status": "ok",
+    "temperature": 0.0,
+    "think": "false"
+  },
+  "ollama_version": "0.35.1",
+  "digests": {
+    "deepseek-r1:1.5b": "e0979632db5a88d1a53884cb2a941772d10ff5d055aabaa6801c4e36f3a6c2d7",
+    "gemma3:4b": "a2af6cc3eb7fa8be8504abaf9b04e88f17a119ec3f04a3addf55f92841195f5a",
+    "llama3.1:8b": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+    "qwen3:4b": "359d7dd4bcdab3d86b87d73ac27966f4dbb9f5efdfcc75d34a8764a09474fae7"
+  },
+  "ollama_env": {
+    "OLLAMA_NUM_PARALLEL": "1",
+    "OLLAMA_MAX_LOADED_MODELS": "2",
+    "OLLAMA_KEEP_ALIVE": "-1",
+    "CUDA_VISIBLE_DEVICES": ""
+  },
+  "docker_version": "29.8.0",
+  "git_head": "3023dca7accd2cb79f1cc8533ff60713bc4ae090",
+  "service_code_commit": "93723241419ce54ab639d28f7315b6181213fb50",
+  "ollama_restarted_utc": "2026-11-24T09:59:56.928730+00:00",
+  "warmup": [
+    {
+      "row": "3992",
+      "status": 201,
+      "ms": 24218.6,
+      "ticket_id": 2363,
+      "category": "Consumer loan",
+      "final_model": "llama3.1:8b",
+      "small_category": "Debt collection",
+      "escalated": true
+    },
+    {
+      "row": "3993",
+      "status": 201,
+      "ms": 5967.2,
+      "ticket_id": 2364,
+      "category": "Credit card",
+      "final_model": "llama3.1:8b",
+      "small_category": "Debt collection",
+      "escalated": true
+    },
+    {
+      "row": "3996",
+      "status": 201,
+      "ms": 4021.7,
+      "ticket_id": 2365,
+      "category": "Money transfer or service",
+      "final_model": "llama3.1:8b",
+      "small_category": "Debt collection",
+      "escalated": true
+    }
+  ],
+  "ollama_ps": [
+    {
+      "name": "llama3.1:8b",
+      "size": 5576117451,
+      "size_vram": 0
+    },
+    {
+      "name": "qwen3:4b",
+      "size": 3184001022,
+      "size_vram": 0
+    }
+  ],
+  "stats_after_warmup": 2365
+}
